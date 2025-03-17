@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Khales/static/css/main.08e0eeda.css",
-    "main.js": "/Khales/static/js/main.2f1240d2.js",
+    "main.css": "/Khales/static/css/main.86e3ad29.css",
+    "main.js": "/Khales/static/js/main.74629b8e.js",
     "static/js/511.bc397514.chunk.js": "/Khales/static/js/511.bc397514.chunk.js",
     "static/media/11.png": "/Khales/static/media/11.65678ad4c885f3be0b7c.png",
     "static/media/12.png": "/Khales/static/media/12.bcabb603de97262d28da.png",
@@ -46,12 +46,12 @@
     "static/media/slick.ttf": "/Khales/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/Khales/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/Khales/index.html",
-    "main.08e0eeda.css.map": "/Khales/static/css/main.08e0eeda.css.map",
-    "main.2f1240d2.js.map": "/Khales/static/js/main.2f1240d2.js.map",
+    "main.86e3ad29.css.map": "/Khales/static/css/main.86e3ad29.css.map",
+    "main.74629b8e.js.map": "/Khales/static/js/main.74629b8e.js.map",
     "511.bc397514.chunk.js.map": "/Khales/static/js/511.bc397514.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.08e0eeda.css",
-    "static/js/main.2f1240d2.js"
+    "static/css/main.86e3ad29.css",
+    "static/js/main.74629b8e.js"
   ]
 }
