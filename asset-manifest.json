@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Khales/static/css/main.86e3ad29.css",
-    "main.js": "/Khales/static/js/main.56194d84.js",
+    "main.css": "/Khales/static/css/main.e2d22f0e.css",
+    "main.js": "/Khales/static/js/main.306e2613.js",
     "static/js/511.bc397514.chunk.js": "/Khales/static/js/511.bc397514.chunk.js",
     "static/media/11.png": "/Khales/static/media/11.65678ad4c885f3be0b7c.png",
     "static/media/12.png": "/Khales/static/media/12.bcabb603de97262d28da.png",
@@ -13,8 +13,10 @@
     "static/media/7.png": "/Khales/static/media/7.f464e25c8d6089dd652d.png",
     "static/media/6.png": "/Khales/static/media/6.fbe4f59b410aed4e56d0.png",
     "static/media/2.png": "/Khales/static/media/2.5fc10cab28991e08c176.png",
+    "static/media/Black White Tan Minimal Bold FAQ Search Bar Instagram Story.png": "/Khales/static/media/Black White Tan Minimal Bold FAQ Search Bar Instagram Story.a26e7bb460f3a84be9cf.png",
     "static/media/Rectangle.png": "/Khales/static/media/Rectangle.d72d30393970886beb55.png",
     "static/media/int4.jpg": "/Khales/static/media/int4.a90154857a9881efcf71.jpg",
+    "static/media/Screenshot 2025-03-18 122742.png": "/Khales/static/media/Screenshot 2025-03-18 122742.a70e6580b4274f6d3743.png",
     "static/media/int2.jpg": "/Khales/static/media/int2.74402c21ff9229565e07.jpg",
     "static/media/int3.jpg": "/Khales/static/media/int3.89c87082b03cae2bd8b9.jpg",
     "static/media/villa2.jpeg": "/Khales/static/media/villa2.aa5c369388af46a9568f.jpeg",
@@ -46,12 +48,12 @@
     "static/media/slick.ttf": "/Khales/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/Khales/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/Khales/index.html",
-    "main.86e3ad29.css.map": "/Khales/static/css/main.86e3ad29.css.map",
-    "main.56194d84.js.map": "/Khales/static/js/main.56194d84.js.map",
+    "main.e2d22f0e.css.map": "/Khales/static/css/main.e2d22f0e.css.map",
+    "main.306e2613.js.map": "/Khales/static/js/main.306e2613.js.map",
     "511.bc397514.chunk.js.map": "/Khales/static/js/511.bc397514.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.86e3ad29.css",
-    "static/js/main.56194d84.js"
+    "static/css/main.e2d22f0e.css",
+    "static/js/main.306e2613.js"
   ]
 }
