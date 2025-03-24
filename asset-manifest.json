@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Khales/static/css/main.2964ca67.css",
-    "main.js": "/Khales/static/js/main.4fe2f5c7.js",
+    "main.js": "/Khales/static/js/main.80d3d9c3.js",
     "static/js/511.bc397514.chunk.js": "/Khales/static/js/511.bc397514.chunk.js",
     "static/media/11.png": "/Khales/static/media/11.65678ad4c885f3be0b7c.png",
     "static/media/12.png": "/Khales/static/media/12.bcabb603de97262d28da.png",
@@ -43,17 +43,17 @@
     "static/media/BebasNeue-Regular.ttf": "/Khales/static/media/BebasNeue-Regular.12e3683f9192436a7be8.ttf",
     "static/media/Group.png": "/Khales/static/media/Group.7083cb70b60e05db54c6.png",
     "static/media/Khales Logo K - favicon.png": "/Khales/static/media/Khales Logo K - favicon.da5e249ba2214e2bf763.png",
+    "index.html": "/Khales/index.html",
     "static/media/slick.svg": "/Khales/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/Khales/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/Khales/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/Khales/static/media/slick.295183786cd8a1389865.woff",
-    "index.html": "/Khales/index.html",
     "main.2964ca67.css.map": "/Khales/static/css/main.2964ca67.css.map",
-    "main.4fe2f5c7.js.map": "/Khales/static/js/main.4fe2f5c7.js.map",
+    "main.80d3d9c3.js.map": "/Khales/static/js/main.80d3d9c3.js.map",
     "511.bc397514.chunk.js.map": "/Khales/static/js/511.bc397514.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.2964ca67.css",
-    "static/js/main.4fe2f5c7.js"
+    "static/js/main.80d3d9c3.js"
   ]
 }
