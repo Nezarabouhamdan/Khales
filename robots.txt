@@ -1,3 +1,10 @@
-# https://www.robotstxt.org/robotstxt.html
+# Allow all web crawlers access to the site
 User-agent: *
-Disallow:
+# Disallow crawling of specific folders (e.g., static assets, admin panel)
+Disallow: /static/
+Disallow: /admin/
+# Allow everything else
+Allow: /
+
+# Provide the location of your sitemap for easier indexing
+Sitemap: https://nezarabouhamdan.github.io/Khales//sitemap.xml
