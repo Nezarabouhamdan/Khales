@@ -1,7 +1,5 @@
-
-
 import React, { useState, useEffect } from "react";
-import {  FaTimes } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { CgMenuRight } from "react-icons/cg";
 import { NavLink, Link } from "react-router-dom";
 import "./Nav.css";
@@ -19,26 +17,74 @@ import {
 } from "./NavbarStyles.js";
 
 import { useLocation, useHistory } from "react-router-dom";
-import logo from '../../assets/logo-light.png';
+import logo from "../../assets/Khales Logo.png";
+import styled from "styled-components";
+import useDeviceSize from "../../Page/WindowSize.js";
+import { useLanguage } from "../../Context/Languagecontext.js";
 const Navbar = () => {
-  var x = "s";
-  const [lang, setlang] = useState();
+  const [isSticky, setSticky] = useState(false);
+  const { language, changeLanguage } = useLanguage(); // Use the context
+
+  const handleScroll = () => {
+    setSticky(window.scrollY > 0);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const StyledButton = styled(Link)`
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+    z-index: 1;
+    border-radius: 5px;
+    background-color: rgba(92, 145, 8, 1);
+    padding: 11px 25px;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+    letter-spacing: 0.36px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    &:hover {
+      background-color: #545454;
+    }
+
+    &:focus {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 991px) {
+      width: 230px;
+      padding-left: 20px;
+      padding-right: 20px;
+      margin-right: 0px;
+    }
+  `;
   var tabE = [
     "Home",
     "Services",
     "Project Management",
     "Development Planning",
     "Architecture",
-    'Building Contracting',
-    'Engineering Consultancy',
+    "Building Contracting",
+    "Engineering Consultancy",
     "Interior Design",
     "Landscaping",
     "Real Estate",
     "Fit-Out",
-    "Projects",
-    "Contact us",
-    "About us",   
-     "FAQ",
+    "Portfolio",
+    "Connet",
+    "About Khales",
+    "FAQ",
     "Language",
     "Arabic",
     "English",
@@ -48,7 +94,7 @@ const Navbar = () => {
     "الخدمات",
     "إدارة مشاريع",
     "مخطط تطوير",
-    'المعمارية',
+    "المعمارية",
     "عقود بناء",
     "استشارات هندسية",
     " تصميم داخلي",
@@ -56,9 +102,9 @@ const Navbar = () => {
     "حلول عقارية",
     "التجهيز الداخلي",
     "المشاريع",
-    " معناالتواصل",
-    "نبذة عنا"
-    ,'الاسئلة الشائعه',
+    " اتصل بنا",
+    "نبذة عنا",
+    "الاسئلة الشائعه",
     "اللغة",
     "العربية",
     "الانجليزية",
@@ -72,42 +118,13 @@ const Navbar = () => {
   const handleClick = () => {
     setShow(!show);
   };
-  const [lng, setlng] = useState(localStorage.getItem("lng"));
-  const checklng = () => {
-    if (lng == "ar") {
-      console.log("sssssss");
-      setTabs(tabA);
-    } else {
-    }
-  };
-  const chgange_arb = () => {
-    localStorage.setItem("lng", "ar");
-    window.location.reload();
-  };
-  const change_eng = () => {
-    localStorage.setItem("lng", "eng");
-    window.location.reload();
-  };
-
-  const scrollTo = (id) => {
-    const element = document.getElementById(id);
-
-    element.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
-
-  const closeMobileMenu = (to, id) => {
-    if (id && location.pathname === "/") {
-      scrollTo(id);
-    }
-
-    history.push(to);
-    setShow(false);
-  };
   useEffect(() => {
-    checklng();
-  }, []);
+    setTabs(language === "ar" ? tabA : tabE);
+  }, [language]);
+
+  const handleLanguageChange = (lang) => {
+    changeLanguage(lang);
+  };
 
   const [isMenu, setisMenu] = useState(false);
   const [isResponsiveclose, setResponsiveclose] = useState(false);
@@ -164,8 +181,9 @@ const Navbar = () => {
   } else {
     boxClassSubMenu4.push("");
   }
+
   return (
-    <Nav>
+    <Nav className={isSticky ? "sticky" : ""}>
       <NavbarContainer>
         <NavLogo to="/">
           <NavIcon src={logo} />
@@ -175,6 +193,13 @@ const Navbar = () => {
         </MobileIcon>
         <NavMenu show={show}>
           <NavItem>
+            {useDeviceSize()[0] > "960" ? (
+              ""
+            ) : (
+              <StyledButton style={{ margin: "auto" }}>
+                Book Consultation
+              </StyledButton>
+            )}
             <ul className={boxClass.join(" ")}>
               <li className="menu-item">
                 <NavLink
@@ -184,7 +209,14 @@ const Navbar = () => {
                   to={`/`}
                 >
                   {" "}
-                  <Text> {tabs[0]} </Text>
+                  <Text
+                    style={{
+                      color: location.pathname === "/" ? "#66a109" : "black",
+                    }}
+                  >
+                    {" "}
+                    {tabs[0]}{" "}
+                  </Text>
                 </NavLink>
               </li>
               <li
@@ -194,7 +226,14 @@ const Navbar = () => {
                 {" "}
                 <Link to="/service">
                   {" "}
-                  <Text>{tabs[1]}</Text>{" "}
+                  <Text
+                    style={{
+                      color:
+                        location.pathname === "/service" ? "#66a109" : "black",
+                    }}
+                  >
+                    {tabs[1]}
+                  </Text>{" "}
                 </Link>
                 <ul className={boxClassSubMenu.join(" ")}>
                   <li>
@@ -205,83 +244,177 @@ const Navbar = () => {
                       to={`/ProjectManagement`}
                     >
                       {" "}
-                      <Text> {tabs[2]} </Text>{" "}
+                      <Text
+                        style={{
+                          color:
+                            location.pathname === "/ProjectManagement"
+                              ? "#66a109"
+                              : "black",
+                        }}
+                      >
+                        {" "}
+                        {tabs[2]}{" "}
+                      </Text>{" "}
                     </NavLink>{" "}
                   </li>
                   <li>
                     <NavLink
                       onClick={toggleClass}
                       activeClassName="is-active"
-                      to={`/Developmentplaning`}
+                      to={`/Developmentplanning`}
                     >
                       {" "}
-                      <Text> {tabs[3]} </Text>{" "}
+                      <Text
+                        style={{
+                          color:
+                            location.pathname === "/Developmentplanning"
+                              ? "#66a109"
+                              : "black",
+                        }}
+                      >
+                        {" "}
+                        {tabs[3]}{" "}
+                      </Text>{" "}
                     </NavLink>{" "}
                   </li>
                   <li>
                     <NavLink
                       onClick={toggleClass}
                       activeClassName="is-active"
-                      to={`/Architecture`}
+                      to={`/ArchitectureDesign`}
                     >
                       {" "}
-                      <Text> {tabs[4]} </Text>
+                      <Text
+                        style={{
+                          color:
+                            location.pathname === "/ArchitectureDesign"
+                              ? "#66a109"
+                              : "black",
+                        }}
+                      >
+                        {" "}
+                        {tabs[4]}{" "}
+                      </Text>
                     </NavLink>{" "}
-                  </li>    <li>
+                  </li>{" "}
+                  <li>
                     <NavLink
                       onClick={toggleClass}
                       activeClassName="is-active"
-                      to={`/Bulidingcontracting`}
+                      to={`/BuildingContracting`}
                     >
                       {" "}
-                      <Text> {tabs[5]} </Text>
+                      <Text
+                        style={{
+                          color:
+                            location.pathname === "/BuildingContracting"
+                              ? "#66a109"
+                              : "black",
+                        }}
+                      >
+                        {" "}
+                        {tabs[5]}{" "}
+                      </Text>
                     </NavLink>{" "}
-                  </li>    <li>
+                  </li>{" "}
+                  <li>
                     <NavLink
                       onClick={toggleClass}
                       activeClassName="is-active"
                       to={`/EngineeringConsultancy`}
                     >
                       {" "}
-                      <Text> {tabs[6]} </Text>
+                      <Text
+                        style={{
+                          color:
+                            location.pathname === "/EngineeringConsultancy"
+                              ? "#66a109"
+                              : "black",
+                        }}
+                      >
+                        {" "}
+                        {tabs[6]}{" "}
+                      </Text>
                     </NavLink>{" "}
-                  </li>    <li>
+                  </li>{" "}
+                  <li>
                     <NavLink
                       onClick={toggleClass}
                       activeClassName="is-active"
                       to={`/InteriorDesign`}
                     >
                       {" "}
-                      <Text> {tabs[7]} </Text>
+                      <Text
+                        style={{
+                          color:
+                            location.pathname === "/InteriorDesign"
+                              ? "#66a109"
+                              : "black",
+                        }}
+                      >
+                        {" "}
+                        {tabs[7]}{" "}
+                      </Text>
                     </NavLink>{" "}
-                  </li>    <li>
+                  </li>{" "}
+                  <li>
                     <NavLink
                       onClick={toggleClass}
                       activeClassName="is-active"
-                      to={`/Landscaping`}
+                      to={`/LandscapingDesign`}
                     >
                       {" "}
-                      <Text> {tabs[8]} </Text>
+                      <Text
+                        style={{
+                          color:
+                            location.pathname === "/LandscapingDesign"
+                              ? "#66a109"
+                              : "black",
+                        }}
+                      >
+                        {" "}
+                        {tabs[8]}{" "}
+                      </Text>
                     </NavLink>{" "}
-                  </li>    <li>
+                  </li>{" "}
+                  <li>
                     <NavLink
                       onClick={toggleClass}
                       activeClassName="is-active"
-                      to={`/realestate`}
+                      to={`/RealEstate`}
                     >
                       {" "}
-                      <Text> {tabs[9]} </Text>
+                      <Text
+                        style={{
+                          color:
+                            location.pathname === "/RealEstate"
+                              ? "#66a109"
+                              : "black",
+                        }}
+                      >
+                        {" "}
+                        {tabs[9]}{" "}
+                      </Text>
                     </NavLink>{" "}
-                  </li>  
-                  
-                    <li>
+                  </li>
+                  <li>
                     <NavLink
                       onClick={toggleClass}
                       activeClassName="is-active"
-                      to={`/fit-out`}
+                      to={`/Fit-OutDesign`}
                     >
                       {" "}
-                      <Text> {tabs[10]} </Text>
+                      <Text
+                        style={{
+                          color:
+                            location.pathname === "/Fit-OutDesign"
+                              ? "#66a109"
+                              : "black",
+                        }}
+                      >
+                        {" "}
+                        {tabs[10]}{" "}
+                      </Text>
                     </NavLink>{" "}
                   </li>
                 </ul>
@@ -294,7 +427,15 @@ const Navbar = () => {
                   to={`/PROJECTS`}
                 >
                   {" "}
-                  <Text> {tabs[11]} </Text>
+                  <Text
+                    style={{
+                      color:
+                        location.pathname === "/PROJECTS" ? "#66a109" : "black",
+                    }}
+                  >
+                    {" "}
+                    {tabs[11]}{" "}
+                  </Text>
                 </NavLink>
               </li>
               <li className="menu-item">
@@ -305,7 +446,15 @@ const Navbar = () => {
                   to={`/Contact`}
                 >
                   {" "}
-                  <Text> {tabs[12]} </Text>
+                  <Text
+                    style={{
+                      color:
+                        location.pathname === "/Contact" ? "#66a109" : "black",
+                    }}
+                  >
+                    {" "}
+                    {tabs[12]}{" "}
+                  </Text>
                 </NavLink>
               </li>
               <li className="menu-item">
@@ -316,21 +465,17 @@ const Navbar = () => {
                   to={`/ABOUTUS`}
                 >
                   {" "}
-                  <Text> {tabs[13]} </Text>
+                  <Text
+                    style={{
+                      color:
+                        location.pathname === "/ABOUTUS" ? "#66a109" : "black",
+                    }}
+                  >
+                    {" "}
+                    {tabs[13]}{" "}
+                  </Text>
                 </NavLink>
               </li>
-              <li className="menu-item">
-                <NavLink
-                  exact
-                  activeClassName="is-active"
-                  onClick={toggleClass}
-                  to={`/FAQ`}
-                >
-                  {" "}
-                  <Text> {tabs[14]} </Text>
-                </NavLink>
-              </li>
-             
               <li
                 onClick={toggleSubmenu4}
                 className="menu-item sub__menus__arrows"
@@ -344,7 +489,7 @@ const Navbar = () => {
                   <li>
                     {" "}
                     <NavLink
-                      onClick={chgange_arb}
+                      onClick={() => handleLanguageChange("ar")}
                       activeClassName="is-active"
                       to={"/"}
                     >
@@ -354,7 +499,7 @@ const Navbar = () => {
                   </li>
                   <li>
                     <NavLink
-                      onClick={change_eng}
+                      onClick={() => handleLanguageChange("eng")}
                       activeClassName="is-active"
                       to={`/`}
                     >
@@ -366,6 +511,12 @@ const Navbar = () => {
               </li>
             </ul>
           </NavItem>
+        </NavMenu>
+        <NavMenu>
+          {" "}
+          <StyledButton to={`/booking`}>
+            {language === "eng" ? "Book Consultation" : "أحجز موعدك الآن"}
+          </StyledButton>
         </NavMenu>
       </NavbarContainer>
     </Nav>

@@ -4,16 +4,14 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-
-
-const StyledButton = styled(Link)`
+export const StyledButton = styled(Link)`
   display: flex;
   align-items: center;
   gap: 15px;
   justify-content: center;
-  z-index:1;
-  border-radius: 20px;
-  background-color: rgba(102, 161, 9, 1);
+  z-index: 1;
+  border-radius: 5px;
+  background-color: #545454;
   padding: 11px 25px;
   font-size: 18px;
   color: rgba(255, 255, 255, 1);
@@ -22,7 +20,7 @@ const StyledButton = styled(Link)`
   border: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
-text-decoration:none;
+  text-decoration: none;
   &:hover {
     background-color: rgba(92, 145, 8, 1);
   }
@@ -33,6 +31,7 @@ text-decoration:none;
   }
 
   @media (max-width: 991px) {
+    width: 230px;
     padding-left: 20px;
     padding-right: 20px;
   }
@@ -41,6 +40,9 @@ text-decoration:none;
 const ButtonText = styled.span`
   align-self: stretch;
   margin: auto 0;
+  @media (max-width: 991px) {
+    font-size: 12px;
+  }
 `;
 
 const ButtonIcon = styled.img`
@@ -51,11 +53,14 @@ const ButtonIcon = styled.img`
   align-self: stretch;
   margin: auto 0;
   flex-shrink: 0;
+  @media (max-width: 991px) {
+    width: 20px;
+  }
 `;
 
 export const CTAButton = ({ children, onClick }) => {
   return (
-    <StyledButton  to={"/contact"}  aria-label="Contact us">
+    <StyledButton to={"/contact"} aria-label="Contact us">
       <ButtonText>{children}</ButtonText>
       <ButtonIcon
         loading="lazy"

@@ -17,7 +17,7 @@
     text-align: center;
     display: block;
     margin: 0 auto;
-    color: white;
+    color: black;
     font-family: "Inter", sans-serif;
   }
   .navBar .logo img {
@@ -65,7 +65,7 @@
     line-height: 40px;
     position: relative;
     display: block;
-    color: white;
+    color: black;
     margin: 15px 17px;
     text-decoration: none;
     cursor: pointer;
@@ -123,7 +123,7 @@
   .sub__menus {
     position: absolute;
     display: none;
-    background: black;
+    background: rgb(255, 255, 255);
     border: 1px solid;
     width: 14vw;
     padding: 2px;
@@ -138,7 +138,7 @@
   }
   @media (max-width: 767px) {
     .header__middle .active {
-      color: white !important;
+      color: black !important;
     }
   }
   
@@ -213,7 +213,7 @@
     .main-nav .menu-item a {
       margin: 10px 17px;
       text-align: center;
-      color: white;
+      color: black;
     }
     .main-nav ul.main-menu {
       display: none;

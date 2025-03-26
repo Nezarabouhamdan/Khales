@@ -28,7 +28,7 @@ const InfoSection = () => {
 };
 
 const MainContainer = styled.main`
-height:60vh;
+  height: 60vh;
   max-width: 1263px;
   margin: 0 auto;
   position: relative;
@@ -40,7 +40,7 @@ height:60vh;
 `;
 
 const ContentWrapper = styled.div`
-margin-top:150px;
+  margin-top: 150px;
 
   display: flex;
   position: relative;

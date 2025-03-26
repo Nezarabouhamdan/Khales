@@ -61,10 +61,10 @@ export const Button = styled(motion.div)`
   cursor: pointer;
   position: relative;
   overflow: hidden;
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 
   &:before {
-    background: ${({ back }) => (back ? "#fff" : "white")}; 
+    background: ${({ back }) => (back ? "#fff" : "white")};
 
     content: "";
     position: absolute;
@@ -82,39 +82,38 @@ export const Button = styled(motion.div)`
   &:hover {
     z-index: 1;
 
-     color: ${({ back }) => (back ? "black" : "black")};
+    color: ${({ back }) => (back ? "black" : "black")};
   }
   @media screen and (max-width: 968px) {
     margin-top: 40px;
     width: 135px;
     font-size: small;
-  } ;
+  }
 `;
 export const Button2 = styled(motion.div)`
   border-radius: 50rem;
   background: ${({ back }) => (back ? "black" : "none")};
-  width: 160px;
+  width: 100%;
   display: flex;
   flex-direcation: row;
   justify-content: space-evenly;
   align-items: center;
   height: 45px;
-
-margin-top:50px;  white-space: nowrap;
+  margin-top: 50px;
+  white-space: nowrap;
   padding: ${({ big }) => (big ? "12px 64px" : "10px 12px")};
   font-weight: 1000;
-  color: #fff;
   font-size: ${({ fontbig }) => (fontbig ? "20px" : "14px")};
-  color: ${({ back }) => (back ? "white" : "#66a109")};
+  color: ${({ back }) => (back ? "white" : "white")};
   outline: none;
-  border: 2px solid#66a109;
+  border: 2px solid WHITE;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 
   &:before {
-    background: ${({ back }) => (back ? "#fff" : "#66a109")}; 
+    background: ${({ back }) => (back ? "#fff" : "#66a109")};
 
     content: "";
     position: absolute;
@@ -132,19 +131,18 @@ margin-top:50px;  white-space: nowrap;
   &:hover {
     z-index: 1;
 
-     color: ${({ back }) => (back ? "black" : "white")};
+    color: ${({ back }) => (back ? "black" : "white")};
   }
   @media screen and (max-width: 968px) {
     margin-top: 40px;
-    width: 135px;
+    width: 170px;
     font-size: small;
-  } ;
+  }
 `;
-
 
 export const Row = styled(motion.div)`
   display: flex;
-  flex-directions:row;
+  flex-directions: row;
   justify-content: space-evenly;
   align-items: ${({ align }) => (align ? align : "")};
   gap: ${({ gap }) => (gap ? gap : "1rem")};
@@ -159,11 +157,13 @@ export const Row = styled(motion.div)`
   min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
   flex-wrap: ${({ wrap }) => (wrap ? wrap : "")};
 `;
-export const Row2 = styled(motion.div)`  display: flex;
-  flex-directions:row;
-justify-content:'';
+export const Row2 = styled(motion.div)`
+  display: flex;
+  flex-direction: ${({ rtl }) => (rtl ? "row-reverse" : "row")};
+  justify-content: ${({ justify }) => (justify ? justify : "center")};
+
   align-items: ${({ align }) => (align ? align : "")};
-  gap: ${({ gap }) => (gap ? gap : "1rem")};
+  gap: ${({ gap }) => (gap ? gap : "3rem")};
   padding: ${({ padding }) => (padding ? padding : "")};
   margin: ${({ margin }) => (margin ? margin : "")};
   position: ${({ position }) => (position ? position : "")};
@@ -174,14 +174,20 @@ justify-content:'';
   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
   min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
   flex-wrap: ${({ wrap }) => (wrap ? wrap : "")};
+  @media screen and (max-width: 968px) {
+    padding: 0 30px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
 
-  justify-content: ${({ justify }) => (justify ? justify : "")};
-  align-items: ${({ align }) => (align ? align : "")};
-  gap: ${({ gap }) => (gap ? gap : "")};
+  justify-content: ${({ justify }) => (justify ? justify : "center")};
+  align-items: ${({ align }) => (align ? align : "center")};
+  gap: ${({ gap }) => (gap ? gap : "5rem")};
   padding: ${({ padding }) => (padding ? padding : "")};
   margin: ${({ margin }) => (margin ? margin : "")};
   position: ${({ position }) => (position ? position : "")};
@@ -202,7 +208,7 @@ export const Heading = styled(motion.h1)`
   letter-spacing: 0.4rem;
   line-height: 1.06;
   text-align: center;
-     font-family: "Inter";
+  font-family: "Inter";
   width: ${({ width }) => (width ? width : "100%")};
 `;
 export const TextWrapper = styled(motion.span)`
@@ -214,5 +220,5 @@ export const TextWrapper = styled(motion.span)`
   margin: ${({ margin }) => (margin ? margin : "")};
   margin-bottom: ${({ mb }) => (mb ? mb : "")};
   margin-top: ${({ mt }) => (mt ? mt : "")};
-    font-family: "Inter", sans-serif;
+  font-family: "Inter", sans-serif;
 `;

@@ -7,9 +7,9 @@ const InfoSection = styled.section`
   display: flex;
   flex-direction: column;
   line-height: normal;
-  width: 45%;
+  width: 35%;
   margin-left: 0px;
-
+height:100%;
   @media (max-width: 991px) {
     width: 100%;
   }
@@ -17,7 +17,7 @@ const InfoSection = styled.section`
 
 const InfoContent = styled.div`
   border-radius: 10px;
-  background-color: rgba(102, 161, 9, 1);
+  background-color:#545454;
   display: flex;
   margin: 0 auto;
   width: 100%;
@@ -72,7 +72,7 @@ const Icon = styled.img`
 
 const ContactInfo = () => {
   return (
-    <InfoSection>
+    <InfoSection >
       <InfoContent>
         <Title>Contact Information</Title>
         <Subtitle>Say something to start a live chat!</Subtitle>
@@ -102,30 +102,6 @@ const ContactInfo = () => {
           />
           <address>
           Office M03, Mezzanine Floor, Building 5, Block B, Dubai Design District, Dubai, UAE
-          </address>
-        </ContactItem><ContactItem>
-          <Icon
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a95236edbb272ad63891b22868a195f09637d663fca1420ca3cc4475295718e?placeholderIfAbsent=true&apiKey=aa3beaa1347a405eb89ef941921d55f8"
-            alt="Location icon"
-          />
-          <address>
-          Office No. 113, First Floor, SIT Tower, Dubai Silicon Oasis, Dubai, UAE
-          </address>
-        </ContactItem><ContactItem>
-          <Icon
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a95236edbb272ad63891b22868a195f09637d663fca1420ca3cc4475295718e?placeholderIfAbsent=true&apiKey=aa3beaa1347a405eb89ef941921d55f8"
-            alt="Location icon"
-          />
-          <address>
-          Shop 11, Block C, Al Saud Head Office, Sheikh Khalifa Bin Zayed Al Nahyan Rd - Muwaileh Commercial, Sharjah, UAE
-          </address>
-        </ContactItem><ContactItem>
-          <Icon
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/0a95236edbb272ad63891b22868a195f09637d663fca1420ca3cc4475295718e?placeholderIfAbsent=true&apiKey=aa3beaa1347a405eb89ef941921d55f8"
-            alt="Location icon"
-          />
-          <address>
-          ⁠Office 202, Creative Tower, Hamad Bin Abdulla St., Fujairah, UAE
           </address>
         </ContactItem>
 

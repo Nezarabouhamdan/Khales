@@ -11,10 +11,14 @@ export const Herosection = styled.div`
   justify-content: space-around;
   align-content: left;
   align-items: left;
+  z-index: -1;
+  overflow: hidden;
   @media screen and (max-width: 968px) {
-    height: 100vh;
+    height: 50vh;
     justify-content: center;
     align-content: center;
+    width: 100%;
+
     align-items: center;
   }
 `;
@@ -24,13 +28,12 @@ export const Heroimg = styled.img`
   width: 100%;
   height: 100vh;
   position: absolute;
-  filter: brightness(50%);
+
   z-index: -1;
   @media screen and (max-width: 968px) {
     object-fit: fill;
 
-    width: 100%;
-    height: 230vw;
+    height: 50vh;
   }
 `;
 export const Textdiv = styled.div`
@@ -46,7 +49,7 @@ export const Textdiv = styled.div`
     width: 80%;
     margin-top: -20%;
     margin-left: 0%;
-height:50vh;
+    height: 50vh;
     justify-content: center;
     align-items: center;
   }
@@ -95,7 +98,7 @@ export const Head2 = styled(motion.div)`
 
   padding-bottom: 2px;
   font-size: 60px;
-  line-height:80px;
+  line-height: 80px;
   font-family: "Inter";
   color: rgb(255, 251, 251);
   font-weight: 700;

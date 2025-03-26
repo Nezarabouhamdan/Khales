@@ -9,7 +9,6 @@ import {
   Underlinev,
 } from "./Herostyles";
 import img from "../../assets/Projects.jpg";
-import img1 from "../../assets/icons8-mesh-100.png";
 import { Button, Button2, Row } from "../../Globalstyles";
 import { useState, useEffect } from "react";
 import VisibilitySensor from "react-visibility-sensor";

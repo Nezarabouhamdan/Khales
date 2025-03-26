@@ -3,90 +3,74 @@ import * as React from "react";
 import styled from "styled-components";
 import { StatItem } from "./StatItem";
 import { ImageSection } from "./ImageSection";
+import { GreenText, TextSection, Title } from "../Whoweare/TextContent";
+import { useLanguage } from "../../Context/Languagecontext";
 
-const InteriorDesign = ({data}) => {
+const InteriorDesign = ({ data }) => {
+  const { language } = useLanguage(); // Use the context
+
+  const MainContainer = styled.main`
+    max-width: 1218px;
+    margin: 0 auto;
+    padding: 75px 0;
+    position: relative;
+    display: flex;
+    flex-direction: ${({ rtl }) => (rtl ? "row-reverse" : "row")};
+    justify-content: space-between;
+    @media (max-width: 991px) {
+      flex-direction: column;
+      padding: 80px 20px;
+    }
+  `;
+
   return (
-    <MainContainer>
-      <ContentSection>
-        <Title> 
-          {data[0].title}
-           </Title>
-        <Description>
-        {data[0].description}
-
-        </Description>
+    <MainContainer rtl={language === "ar"}>
+      <ContentSection rtl={language === "ar"}>
+        <Title>
+          {language === "ar" ? (
+            <>
+              <GreenText>ما</GreenText> نفعله
+            </>
+          ) : (
+            <>
+              <GreenText>What</GreenText> we do
+            </>
+          )}
+        </Title>
+        <Description>{data[0].description1}</Description>
+        <Description>{data[0].description2}</Description>
         <StartProjectButton
           onClick={() => console.log("Start Project clicked")}
           role="button"
           tabIndex={0}
         >
-          Start Project
+          {language === "ar" ? "ابدأ المشروع" : "Start Project"}
         </StartProjectButton>
-        <StatsContainer>
-          <StatItem number="400+" label="Project Complete" />
-          <StatItem number="600+" label="Satisfied Clients" />
-          <StatItem number="100+" label="Unique Styles" />
-        </StatsContainer>
       </ContentSection>
       <ImageSection images={data[0].images} />
-      </MainContainer>
+    </MainContainer>
   );
 };
 
-const MainContainer = styled.main`
-  max-width: 1218px;
-  margin: 0 auto;
-  padding: 75px 0;
-  position: abosolute;
-  display: flex;
-  justify-content: space-between;
-  @media (max-width: 991px) {
-    flex-direction: column;
-    padding: 80px 20px;
-  }
-`;
-
 const ContentSection = styled.section`
-  width: 760px;
-  padding-left: 8px;
-    @media (max-width: 1200px) {
-      width: 560px;
-
-
-   
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: ${({ rtl }) => (rtl ? "flex-end" : "flex-start")};
+  text-align: ${({ rtl }) => (rtl ? "right" : "left")};
   @media (max-width: 991px) {
-    width: 95vw;
-
-   
-  }
-`;
-
-const Title = styled.h1`
-  font-family: "Inter", sans-serif;
-  font-size: 55px;
-  font-weight: 800;
-  line-height:70px;
-  color: #000;
-  margin: 0 0 42px 0;
-  @media (max-width: 991px) {
-    font-size: 80px;
-    margin-bottom: 30px;
-  }
-  @media (max-width: 640px) {
-    font-size: 50px;
-    margin-bottom: 20px;
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 `;
 
 const Description = styled.p`
   font-family: "Inter", sans-serif;
-
   font-size: 16px;
   font-weight: 400;
   color: #545454;
   line-height: 175%;
-  margin: 70px 0 102px 0;
+  margin: 50px 0 30px 0;
   max-width: 559px;
   @media (max-width: 991px) {
     font-size: 20px;

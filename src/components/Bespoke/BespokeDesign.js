@@ -2,16 +2,16 @@
 import React from "react";
 import styled from "styled-components";
 import img from '../../assets/arch1.jpeg'
-const BespokeDesign = () => {
+const BespokeDesign = ({ isRTL = true }) => {
   return (
     <>
       <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Roboto:wght@400;600;700&display=swap"
         rel="stylesheet"
       />
-      <MainContainer>
-        <ContentWrapper>
-          <TextSection>
+      <MainContainer >
+      <ContentWrapper rtl={isRTL}>
+      <TextSection rtl={isRTL}>
             <BespokeText>Bespoke</BespokeText>
             <Heading>Transform Your Space with Personalized Design</Heading>
             <Subheading>
@@ -66,7 +66,7 @@ const BespokeDesign = () => {
                 </FeatureDescription>
               </Feature>
             </FeaturesContainer>
-            <ButtonsContainer>
+            <ButtonsContainer    rtl={isRTL}>
               <ContactButton role="button" tabIndex={0}>
                 Contact
               </ContactButton>
@@ -90,7 +90,8 @@ const BespokeDesign = () => {
             </ButtonsContainer>
           </TextSection>
           <MainImage
-            src={img}
+            src={img}            rtl={isRTL}
+
             alt="Interior Design Showcase"
             loading="lazy"
           />
@@ -120,28 +121,30 @@ const MainContainer = styled.section`
     padding: 32px 16px;
   }
 `;
-
 const ContentWrapper = styled.div`
   display: flex;
+  flex-direction: ${({ rtl }) => (rtl ? 'row-reverse' : 'row')};
   width: 100%;
   position: relative;
 
   @media (max-width: 991px) {
+    width: 100vw;
     flex-direction: column;
   }
 `;
 
 const TextSection = styled.div`
-
-
-  @media (max-width: 991px) {
+  width: 500px;
+  text-align: ${({ rtl }) => (rtl ? 'right' : 'left')};
+  
+  @media (max-width: 1200px) {
     width: 50%;
     margin-bottom: 40px;
-  } @media (max-width: 1200px) {     width: 50%;
-
-
-    margin-bottom: 40px;
   }
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 40px;
+  } 
 `;
 
 const BespokeText = styled.h2`
@@ -223,6 +226,7 @@ const ButtonsContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 24px;
+  flex-direction: ${({ rtl }) => (rtl ? 'row-reverse' : 'row')};
 
   @media (max-width: 640px) {
     flex-direction: column;
@@ -297,13 +301,16 @@ const MainImage = styled.img`
   width: 456px;
   height: 440px;
   position: absolute;
-  right: 0;
+  ${({ rtl }) => (rtl ? 'left: 0;' : 'right: 0;')}
   top: 61px;
-  border-radius:20px;
+  border-radius: 20px;
   object-fit: cover;
-@media (max-width: 1200px) {   width: 350px;
-  height: 350px;
+
+  @media (max-width: 1200px) {
+    width: 350px;
+    height: 350px;
   }
+
   @media (max-width: 991px) {
     position: relative;
     width: 100%;
@@ -312,5 +319,6 @@ const MainImage = styled.img`
     margin-top: 32px;
   }
 `;
+
 
 export default BespokeDesign;

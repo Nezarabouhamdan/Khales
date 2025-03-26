@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Column, Row } from "../../Globalstyles";
 
 export const FooterContainer = styled.div`
-  background-color:   rgb(29, 29, 29);
+  background-color: rgb(255, 255, 255);
   padding: 10rem 0 0rem 0;
   height: 100%;
 `;
@@ -57,7 +57,7 @@ export const FooterRow = styled(Row)`
 
 export const FooterGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   justify-content: center;
   align-items: center;
 `;
@@ -103,7 +103,7 @@ export const FooterLinkTitle = styled.h2`
 `;
 
 export const FooterLink = styled(Link)`
-  color:rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   text-decoration: none;
   margin-bottom: 0.5rem;
 
@@ -114,11 +114,11 @@ export const FooterLink = styled(Link)`
 `;
 
 export const FooterLogo = styled(Link)`
-  color:rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.2);
   justify-self: start;
   cursor: pointer;
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 9rem;
   display: flex;
   align-items: center;
   margin-bottom: 0px;
@@ -126,7 +126,7 @@ export const FooterLogo = styled(Link)`
 
 export const SocialIcon = styled.img`
   margin-right: 10px;
-  width: 100px;
+  width: 150px;
 `;
 
 export const FooterRights = styled.div`
@@ -141,7 +141,7 @@ export const FooterRights = styled.div`
 `;
 
 export const FooterSocialIcon = styled.a`
-  color:rgb(255, 255, 255);
+  color: #66a109;
   font-size: 24px;
 `;
 

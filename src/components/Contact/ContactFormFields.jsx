@@ -8,6 +8,7 @@ import {
 } from "./FormElements";
 
 const FormSection = styled.section`
+height:50vh;
   display: flex;
   flex-direction: column;
   width: 55%;

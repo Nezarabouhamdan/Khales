@@ -82,11 +82,7 @@ margin-top:30px;font-size:18px;
 `;
 function Faqs(){
   return (
-<>   <Herosection>
-    <Heroimg src={img2}/>
-    <Head >Frequently Asked Questions
-    </Head>
-   </Herosection>
+<>   
  <Row >
     <OurProcessWork panels={Faqdata}  button={false} />
     <ResponsiveImage src={img} alt="Responsive" />

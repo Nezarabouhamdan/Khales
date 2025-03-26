@@ -28,12 +28,7 @@ export const footerSocialData = [
     link: "https://www.pinterest.com/khalesae/",
 
   },
-  {
-    name: "Twitter",
-    icon: iconStyle(FaTwitter),
-    link: "https://www.linkedin.com/company/khales-ae/posts/?feedView=all",
 
-  },
   {
     name: "LinkedIn",
     icon: iconStyle(FaLinkedin),
@@ -44,19 +39,28 @@ export const footerSocialData = [
 
 export const footerData = [
   {
-    title: "Main",
-    links: ["Blog", "FAQs", "Support", "About us"],
+    title: "Dubai Majlis",
+    links: ['Office M03, Building 5, Block B ,Design District, Dubai, UAE,+971 4 123 1234'],
   },
   {
-    title: "Product",
-    links: ["Login", "Personal", "Business", "Team"],
+    title: "Dubai Branch",
+    links: ["Office 113, SIT Tower Dubai Silicon Oasis, Dubai, UAE +971 4 123 1234"],
   },
   {
-    title: "Press",
-    links: ["Logos", "Events", "Stories", "Office"],
+    title: "Sharjah Branch",
+    links: ['Shop 11, Block C, Al Saud Head Office, Shk Khalifa Bin Zayed Al Nahyan Road, Muwaileh Commercial, Sharjah, UAE+971 6 123 1234'],
   },
   {
-    title: "Legal",
-    links: ["GDPR", "Privacy Policy", "Terms of Service", "Disclaimer"],
+    title: "Sharjah Branch",
+    links: ['Shop 11, Block C, Al Saud Head Office, Shk Khalifa Bin Zayed Al Nahyan Road, Muwaileh Commercial, Sharjah, UAE+971 6 123 1234'],
   },
+  {
+    title: "Sharjah Branch",
+    links: ['Shop 11, Block C, Al Saud Head Office, Shk Khalifa Bin Zayed Al Nahyan Road, Muwaileh Commercial, Sharjah, UAE+971 6 123 1234'],
+  },
+  {
+    title: "Sharjah Branch",
+    links: ['Shop 11, Block C, Al Saud Head Office, Shk Khalifa Bin Zayed Al Nahyan Road, Muwaileh Commercial, Sharjah, UAE+971 6 123 1234'],
+  },
+ 
 ];

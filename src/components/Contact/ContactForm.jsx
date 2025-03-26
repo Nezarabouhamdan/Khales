@@ -39,7 +39,7 @@ const ContactForm = () => {
   };
 
   return (
-    <ContactFormWrapper>
+    <ContactFormWrapper style={{ margin: "100px auto" }}>
       <FormContainer>
         <ContentLayout>
           <ContactInfo />

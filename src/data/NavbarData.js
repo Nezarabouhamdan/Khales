@@ -17,15 +17,18 @@ export const data = [
     to: "/service",
     text: "Services",
     id: "services",
-  },  {
+  },
+  {
     to: "/Projects",
     text: "Projects",
     id: "Projects",
-  }, {
+  },
+  {
     to: "/Faq",
     text: "FAQ",
     id: "Faq",
-  }, {
+  },
+  {
     to: "/",
     text: "Contact Us",
     id: "Contact Us",

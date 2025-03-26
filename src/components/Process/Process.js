@@ -2,9 +2,9 @@ import React from 'react'
 import OurProcessWork from '../OurProcessWork/OurProcessWork'
 import img from '../../assets/process.jpg'
 import { Container } from './ProcessStyles'
-import { Title } from '../Featured Projects/FeaturedProjects'
 import { StepsData } from '../../data/StepsData'
 import styled from 'styled-components'
+import { Title } from '../Whoweare/TextContent'
 const Row=styled.div`  display: flex;
   flex-direction:row;
   justify-content: space-evenly; 

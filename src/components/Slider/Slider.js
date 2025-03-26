@@ -1,40 +1,96 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import styled, { keyframes } from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import {
+  DoubleArrowLeftIcon,
+  DoubleArrowRightIcon,
+} from "@radix-ui/react-icons";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { Button2 } from "../../Globalstyles";
 
-import { Button } from "../../Globalstyles";
-import { Link } from "react-router-dom";
-import { TextAlignCenterIcon } from "@radix-ui/react-icons";
-import useDeviceSize from "../../Page/WindowSize";
-
+// Styled Components (unchanged)
 const breakpoints = {
-  xs: 0, 
-  sm: 600, 
-  md: 960, 
-  lg: 1280, 
+  xs: 0,
+  sm: 600,
+  md: 900,
+  lg: 1280,
 };
 
-const Row=styled.div` 
- display: flex;
-  flex-direction:row;
-  justify-content: center; 
+const ArrowButton = styled.button`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 15px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-50%) scale(1.2);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+`;
+
+const PrevArrow = styled(ArrowButton)`
+  left: 25px;
+`;
+
+const NextArrow = styled(ArrowButton)`
+  right: 25px;
+`;
+
+export const Row = styled.div`
+  display: flex;
+  flex-direction: ${({ rtl }) => (rtl ? "row-reverse" : "row")};
+  justify-content: ${({ page }) => (page ? "space-evenly" : "space-between")};
   align-content: flex-start;
-  align-items:  flex-start;
-  width:80vw;
-   @media screen and (max-width: 968px) {
-     flex-direction:column;
-  }   @media screen and (max-width: 1200px) {
-  justify-content: center; 
-  } ;`
-const SliderWrapper = styled.div`
+  align-items: flex-start;
+  width: 70vw;
+  @media screen and (max-width: 968px) {
+    flex-direction: column;
+  }
+  @media screen and (max-width: 1200px) {
+    justify-content: space-evenly;
+  }
+`;
+
+export const SliderWrapper = styled.div`
   width: 100%;
   overflow: hidden;
   background-color: black;
-  height: 100vh;
+  height: 95vh;
+  @media screen and (max-width: 968px) {
+    flex-direction: column;
+    height: 75vh;
+  }
 `;
+
+const PreviousArrow = ({ onClick, currentSlide }) => {
+  return (
+    <PrevArrow onClick={onClick} disabled={currentSlide === 0}>
+      <DoubleArrowLeftIcon style={{ width: "2em", height: "2em" }} />
+    </PrevArrow>
+  );
+};
+
+const NextArrowComponent = ({ onClick, currentSlide, slideCount }) => {
+  return (
+    <NextArrow onClick={onClick} disabled={currentSlide === slideCount - 1}>
+      <DoubleArrowRightIcon style={{ width: "2em", height: "2em" }} />
+    </NextArrow>
+  );
+};
 
 const creativeIn = keyframes`
   0% {
@@ -51,7 +107,7 @@ const creativeIn = keyframes`
   }
 `;
 
-const AnimatedSlideContent = styled.div`
+export const AnimatedSlideContent = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -69,46 +125,35 @@ const StyledSlider = styled(Slider)`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: 95vh;
     overflow: hidden;
   }
 
-
-
   .slick-dots {
+    color: white;
     bottom: 20px;
   }
 `;
-const ContentColumn=styled.div`
-                  
-   
-                      margin-right: -100px;
-          margin-top: 30%;
-                      height: 100%;
-              width: 20vw;
-@media (max-width: 1200px) {
-                      margin-right: 0px;
 
-              width: 30vw;
+export const ContentColumn = styled.div`
+  margin-top: 42%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 1200px) {
+    width: 40vw;
+    margin-top: 50%;
+    margin-right: 00px;
   }
-                        @media screen and (max-width: 968px) {
-                                              margin-right: 00px;
+  @media (max-width: 968px) {
+    height: 20vh;
+    width: 100vw;
+    margin-top: 00%;
+    margin-right: 0;
+  }
+`;
 
-                       width: 70vw;
-  overflow-wrap: break-word; 
-  word-wrap: break-word; 
-
-                        display:flex;
-                        flex-direction:column;
-                        justify-content:flex-start;
-                        align-items:flex-start;
-                        align-content:flex-start;
-                                              margin-top: 00px;
-
-   
-  } 
-                      `
-const SlideContent = styled.div`
+export const SlideContent = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -118,89 +163,55 @@ const SlideContent = styled.div`
   z-index: 1;
 `;
 
-const SlideImage = styled.img`
+export const SlideImage = styled.img`
   width: 100vw;
   object-fit: fill;
-      @media (max-width: 968px) {
-        object-fit: cover;
-
+  border-radius: 15px;
+  height: 100vh;
+  display: ${({ loaded }) => (loaded ? "block" : "none")};
+  @media (max-width: 968px) {
+    object-fit: cover;
     width: 100%;
-    height: 230vw;
- 
-  }
-      @media (max-width: 968px) {
-        object-fit: cover;
-
-    width: 100%;
-    height: 230vw;
- 
+    height: 95vh;
   }
 `;
 
-const Column = styled.div`
+export const Column = styled.div`
   display: flex;
+  width: ${({ rtl }) => (rtl ? "38vw" : "70vw")};
   flex-direction: column;
-              width: 55vw;
-          margin-top:30%;
-   @media (max-width: 1200px) {
+  margin-top: 30%;
+  @media (max-width: 1200px) {
     width: 40vw;
     margin-right: 00px;
   }
-      @media (max-width: 968px) {
-          width: 100vw;
-
-        margin-top: 0px;
+  @media (max-width: 968px) {
+    height: 50vh;
+    margin-top: -15%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    align-content: flex-end;
+    width: 100vw;
     margin-right: 0;
   }
 `;
 
-const Counter = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: #fff;
-  font-size: 24px;
-  z-index: 2;
-`;
-
-const Title = styled.h1`
+export const Title = styled.h1`
   font-family: "Inter", sans-serif;
-  text-align: left;
-  width: 100%;
-  font-size: 200px;
-  margin-top: 0px;
-  margin-right: 160px;
+  text-align: ${({ rtl }) => (rtl ? "right" : "left")};
+  width: 90%;
+  font-size: 40px;
+  line-height: 50px;
 
-  @media (max-width: ${breakpoints.lg}px) {
-  margin-right: 0px;
-
-    font-size: 100px;
-  }
-
-  @media (max-width: ${breakpoints.md}px) {
-    text-align: center;
-  margin-top: 50px;
-  margin-right: 0px;
-    font-size: 70px;
-  }
-
-  @media (max-width: ${breakpoints.sm}px) {  margin-top: 150px;
-  margin-right: 0px;
-      text-align: left;
-
-    font-size: 50px;
-  }
-
-  @media (max-width: ${breakpoints.xs}px) {  margin-top: 50px;
-  margin-right: 0px;
-      text-align: center;
-
-    font-size: 30px;
+  @media (width<981px) {
+    margin-right: 0px;
+    width: 70%;
+    font-size: 18px;
   }
 `;
 
-const Subtitle = styled.h5`
-  text-align: left;
+export const Subtitle = styled.h5`
+  text-align: ${({ rtl }) => (rtl ? "right" : "left")};
   font-family: "Inter ExtraLight", sans-serif;
   font-size: 30px;
   margin-top: 0px;
@@ -221,25 +232,30 @@ const Subtitle = styled.h5`
     font-size: 16px;
   }
 `;
-const TextContianer=styled.div`  font-family: "Inter";
-                        text-align: left;
-                        width: 700px;
-                        height: 200px;
-                        @media (max-width: 968px) {
-     width: 100%;
-                        `
-const Paragraph = styled.p`
+
+export const TextContianer = styled.div`
+  font-family: "Inter";
+  width: 700px;
+  height: 400px;
+  margin-top: 120px;
+  @media (max-width: 968px) {
+    width: 100%;
+  }
+`;
+
+export const Paragraph = styled.p`
   font-family: "Inter ExtraLight", sans-serif;
-  font-size: 17px;
-  text-align: left;
-  margin-top: 20px;
-            white-space: pre-wrap;
+  font-size: 20px;
+  text-align: ${({ rtl }) => (rtl ? "right" : "left")};
+  width: 90%;
 
   @media (max-width: ${breakpoints.lg}px) {
+    width: 60%;
     font-size: 15px;
   }
 
   @media (max-width: ${breakpoints.md}px) {
+    margin-top: 20px;
     font-size: 13px;
   }
 
@@ -250,116 +266,65 @@ const Paragraph = styled.p`
   @media (max-width: ${breakpoints.xs}px) {
     font-size: 11px;
   }
-
-
 `;
 
-const HeroSlider = () => {
+// HeroSlider Component
+const HeroSlider = ({ slides, language, isLoading, rtl }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // Disable interactions if there's only 1 slide
+  const isSingleSlide = slides.length === 1;
+
   const settings = {
-    dots: true,
-    infinite: true,
-    speed: 2000,
+    infinite: slides.length > 1, // Disable infinite loop for 1 slide
+    speed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    rtl: false,
+    autoplay: slides.length > 1, // Disable autoplay for 1 slide
+    autoplaySpeed: 2500,
+    rtl: rtl,
+    arrows: slides.length > 1, // Hide arrows for 1 slide
+
+    swipe: slides.length > 1, // Disable swiping for 1 slide
+    draggable: slides.length > 1, // Disable dragging for 1 slide
+    dots: slides.length > 1, // Hide dots for 1 slide
     beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex),
-
   };
-
-  const slides = [
-    {
-      id: 1,
-      image: 'https://i.ibb.co/vG6yCkC/pool-min.jpg',
-      title: "archin",
-      subtitle: "Architecture Design Studio",
-      content:
-        "We collaborate with clients to create buildings and environments in dialogue with culture and place. And become one of the country's leading architectural practices",
-    },
-    {
-      id: 2,
-      image: 'https://i.ibb.co/DD7YRfGs/img6-min.jpg',
-      title: "time",
-      subtitle: "Sustainable Material Resource",
-      content:
-        "We collaborate with clients to create buildings and environments in dialogue with culture and place. And become one of the country's leading architectural practices",
-    },
-    {
-      id: 3,
-      image: 'https://i.ibb.co/ZRdYSptV/interior-min.jpg',
-      title: "shape",
-      subtitle: "Architecture Language Signature",
-      content:
-        "We collaborate with clients to create buildings and environments in dialogue with culture and place. And become one of the country's leading architectural practices",
-    },
-  ];
 
   return (
     <SliderWrapper>
-      {useDeviceSize()[0]>'770'?   <Counter>
-        {currentSlide + 1} / {slides.length}
-      </Counter>:''}
-   
-      <StyledSlider {...settings}>
-        {slides.map((slide) => (
-          <div key={slide.id}>
-            <SlideImage
-              src={slide.image}
-              alt={slide.title}
-              style={{ filter: "brightness(70%)" }}
-            />
-            <AnimatedSlideContent key={currentSlide}>
-              {" "}
-              <SlideContent>
-                <Row>
-                  <Column >
-                    <TextContianer
-                   
-                    >
-                     <Title>                        {slide.title}
-                     </Title>
-                    </TextContianer>
-
-                    <Subtitle
-                     
-                    >
-                      {slide.subtitle}
-                    </Subtitle>
-                  </Column>
-                  <ContentColumn
-               
-                  >
-                    <Paragraph
-                 
-                    >
-                      {slide.content}
-                    </Paragraph>
-                  <Link to={'/service'}><Button
-                      style={{
-                      
-                        position: "relative",
-                        marginTop: "30px",
-                        borderRadius: "50rem",
-                        border: "1px solid #dee2e6",
-                        
-                      }}
-                      
-                    >
-                      Our Services
-                    </Button></Link>
-                 
-                  </ContentColumn>
-                </Row>
-              </SlideContent>
-            </AnimatedSlideContent>
-          </div>
-        ))}
-      </StyledSlider>
+      {isLoading ? (
+        <Skeleton height="95vh" width="100%" />
+      ) : (
+        <StyledSlider {...settings}>
+          {slides.map((slide) => (
+            <div key={slide.id}>
+              <SlideImage
+                src={slide.image}
+                alt={slide.title}
+                loading="lazy"
+                style={{ filter: "brightness(70%)" }}
+              />
+              <AnimatedSlideContent key={currentSlide}>
+                <SlideContent>
+                  <Row rtl={rtl}>
+                    <Column rtl={rtl}>
+                      <TextContianer>
+                        <Title rtl={rtl}>{slide.title}</Title>
+                        <Paragraph rtl={rtl}>{slide.content}</Paragraph>
+                      </TextContianer>
+                    </Column>
+                    <ContentColumn>
+                      <Button2>{slide.button}</Button2>
+                    </ContentColumn>
+                  </Row>
+                </SlideContent>
+              </AnimatedSlideContent>
+            </div>
+          ))}
+        </StyledSlider>
+      )}
     </SliderWrapper>
   );
 };
-
 export default HeroSlider;

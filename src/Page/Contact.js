@@ -1,24 +1,69 @@
-import React from 'react'
-import { Heroimg, Herosection } from './Faqs'
-import img2 from '../assets/faq.jpg'
-import ContactForm from '../components/Contact/ContactForm'
+import ContactForm from "../components/Figmacontact/ContactForm";
+import React, { useEffect, useState } from "react";
+import ContactUs from "../components/figmaform/ContactUs";
+import { Heroimg, Herosection } from "../components/Hero/Herostyles";
+import img from "../assets/Screenshot 2025-03-18 122742.png";
+import { Row2 } from "../Globalstyles";
+import ServiceCard from "../components/Services2/ServiceCard";
+import { GreenText, Title } from "../components/Whoweare/TextContent";
+import CTASection from "../components/Homecontact/CTASection";
+import { contactData } from "../data/contactData";
+import { useLanguage } from "../Context/Languagecontext";
+
 function Contact() {
+  const { language } = useLanguage();
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Get translated services data array (flat list)
+  const services = contactData[language] || contactData["eng"];
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Create chunks of 3 items for each row
+  const chunkArray = (arr, size) =>
+    Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
+      arr.slice(i * size, i * size + size)
+    );
+
+  const serviceChunks = chunkArray(services, 3);
+
   return (
-    <div>  <Herosection>
-    <Heroimg src={img2}/>
-    <p style={{marginTop:'20px',fontSize:'30px'}}>Get In touch with us
-    </p>
-   </Herosection> <div   style={{display:'grid',placeItems:'center'}}
-    >
-        <ContactForm/> <p style={{marginTop:'60px',fontSize:'30px',fontFamily:'Inter',fontWeight:'800'}}>Visit our Branch
-        </p>
-    <iframe src="https://storage.googleapis.com/maps-solutions-s0czar77ti/locator-plus/t5hz/locator-plus.html"
-width="70%" height="700px" style={{marginTop:'70px',marginBottom:'70PX'}}
-loading="lazy">
-</iframe>
-</div>
-</div>
-  )
+    <div>
+      <Herosection>
+        <Heroimg src={img} style={{ filter: "brightness(75%)" }} />
+      </Herosection>
+      <ContactUs />
+      <div style={{ display: "grid", placeItems: "center", margin: "70px" }}>
+        {" "}
+        <Title>
+          Offices<GreenText> Location</GreenText>
+        </Title>
+      </div>
+      {serviceChunks.map((chunk, index) => (
+        <React.Fragment key={index}>
+          <br />
+          <Row2 rtl={language === "ar"}>
+            {chunk.map((service, idx) => (
+              <ServiceCard
+                key={idx}
+                imageSrc={service.image}
+                titlePart1={service.titlePart1}
+                titlePart2={service.titlePart2}
+                description={service.description}
+                buttonText={language === "ar" ? "المزيد" : "Learn More"}
+                rtl={language === "ar"}
+              />
+            ))}
+          </Row2>
+        </React.Fragment>
+      ))}
+
+      <CTASection></CTASection>
+    </div>
+  );
 }
 
-export default Contact
+export default Contact;

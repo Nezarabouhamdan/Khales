@@ -15,8 +15,8 @@ import img9 from '../../assets/img6.jpeg';
 import img10 from '../../assets/villa.jpeg';
 import img11 from '../../assets/villa2.jpeg';
 import img12 from '../../assets/villa3.jpeg';
-import { Title } from '../Featured Projects/FeaturedProjects';
 import styled, { keyframes } from 'styled-components';
+import { Title } from '../Whoweare/TextContent';
 
 const itemsPerPage = 6; // 6 items per page (2 rows x 3 columns)
 const data = [
