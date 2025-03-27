@@ -27,15 +27,9 @@ const InteriorDesign = ({ data }) => {
     <MainContainer rtl={language === "ar"}>
       <ContentSection rtl={language === "ar"}>
         <Title>
-          {language === "ar" ? (
-            <>
-              <GreenText>ما</GreenText> نفعله
-            </>
-          ) : (
-            <>
-              <GreenText>What</GreenText> we do
-            </>
-          )}
+          {" "}
+          <GreenText>{data[0].title}</GreenText>
+          {data[0].subtitle}
         </Title>
         <Description>{data[0].description1}</Description>
         <Description>{data[0].description2}</Description>
@@ -55,7 +49,7 @@ const InteriorDesign = ({ data }) => {
 const ContentSection = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: ${({ rtl }) => (rtl ? "flex-end" : "flex-start")};
   text-align: ${({ rtl }) => (rtl ? "right" : "left")};
   @media (max-width: 991px) {
@@ -70,7 +64,7 @@ const Description = styled.p`
   font-weight: 400;
   color: #545454;
   line-height: 175%;
-  margin: 50px 0 30px 0;
+  margin: 20px 0 30px 0;
   max-width: 559px;
   @media (max-width: 991px) {
     font-size: 20px;

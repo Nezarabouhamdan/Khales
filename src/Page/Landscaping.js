@@ -1,14 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InteriorDesign from "../components/InteriorDesign/InteriorDesign";
-import { Herosection, Heroimg } from "../components/Hero/Herostyles";
-import {
-  ContentColumn,
-  Subtitle,
-  TextContianer,
-  Paragraph,
-  Row,
-  Title,
-} from "../components/Slider/Slider";
+import HeroSlider from "../components/Slider/Slider";
 import OurProcessWork from "../components/OurProcessWork/OurProcessWork";
 import { Row2, Button2, Column } from "../Globalstyles";
 import img from "../assets/4.png";
@@ -18,17 +10,37 @@ import CTASection from "../components/Homecontact/CTASection";
 import ProjectHighlight from "../components/Projecthighlights/ProjectHighlight";
 import styled from "styled-components";
 import { useLanguage } from "../Context/Languagecontext"; // Import the language context
-
+export const slides = {
+  eng: [
+    {
+      id: 1,
+      image:
+        "https://i.ibb.co/DPKhyq7k/khales-ae-real-photograph-of-a-super-luxury-modern-mansion-fr-c2c57d33-5a47-4ccb-b054-498b16745d23-3.png",
+      title: "Breathtaking Landscapes That Inspire",
+      content: "Transform your outdoor space into a natural masterpiece",
+      button: "Book Your Design",
+    },
+  ],
+  ar: [
+    {
+      id: 1,
+      image:
+        "https://i.ibb.co/DPKhyq7k/khales-ae-real-photograph-of-a-super-luxury-modern-mansion-fr-c2c57d33-5a47-4ccb-b054-498b16745d23-3.png",
+      title: "مناظر طبيعية خلابة تُلهم",
+      content: "حوّل مساحتك الخارجية إلى لوحة فنية طبيعية",
+      button: " احجز تصميمك الآن",
+    },
+  ],
+};
 const data = {
   eng: [
     {
-      title: "Project Management",
+      title: "Landscape Design and Garden Planning:  ",
+      subtitle: " Where Art Meets Nature",
       description1:
-        "Khales is a leading Engineering Consultancy and Project Management Company, dominating the entire UAE, the Gulf region, and the international market. We specialize in providing luxury engineering services, delivering excellence in design, construction, and project management.",
+        "At Khales, we believe that landscape design is more than just planting trees and shrubs; it’s an art of transforming outdoor spaces into beautiful, functional, and sustainable environments. As a leading landscape design and garden planning company in Dubai, our services go beyond simple greenery to include modern irrigation systems, pathways, patios, and outdoor living spaces that blend elegance with practicality.",
       description2:
-        "Khales is a leading Engineering Consultancy and Project Management Company, dominating the entire UAE, the Gulf region, and the international market. We specialize in providing luxury engineering services, delivering excellence in design, construction, and project management.",
-      description3:
-        "Khales is a leading Engineering Consultancy and Project Management Company, dominating the entire UAE, the Gulf region, and the international market. We specialize in providing luxury engineering services, delivering excellence in design, construction, and project management.",
+        "Our team of landscape architects and garden specialists works closely with you to understand your vision and aspirations. Whether you have a sprawling garden or a compact balcony, we bring your ideas to life with creative solutions and meticulous attention to detail. By using high-quality materials and advanced construction techniques, we ensure lasting beauty and durability in every project",
       images: [
         "https://cdn.builder.io/api/v1/image/assets/TEMP/ee56b6848a5668fe4c1e75c526f9ae88908da749",
         "https://cdn.builder.io/api/v1/image/assets/TEMP/83d057c657e643f783b5365240986c54a25d86a4",
@@ -39,13 +51,13 @@ const data = {
   ],
   ar: [
     {
-      title: "إدارة المشاريع",
+      title: "تصميم المناظر الطبيعية وتنسيق الحدائق: ",
+      subtitle: "  حيث يلتقي الفن بالطبيعة",
+
       description1:
-        "خالدز هي شركة رائدة في الاستشارات الهندسية وإدارة المشاريع، تهيمن على الإمارات العربية المتحدة ومنطقة الخليج والسوق الدولية. نحن متخصصون في تقديم خدمات هندسية فاخرة، ونقدم التميز في التصميم والبناء وإدارة المشاريع.",
+        "في خالص، نؤمن بأن تصميم المناظر الطبيعية هو أكثر من مجرد غرس الأشجار وزراعة النباتات؛ بل هو فن تحويل المساحات الخارجية إلى بيئات تنبض بالجمال والراحة. نحن نقدم مجموعة متكاملة من خدمات تصميم المناظر الطبيعية وتنسيق الحدائق في دبي وجميع أنحاء الإمارات العربية المتحدة، بهدف خلق مساحات تجمع بين الأناقة والوظيفة",
       description2:
-        "خالدز هي شركة رائدة في الاستشارات الهندسية وإدارة المشاريع، تهيمن على الإمارات العربية المتحدة ومنطقة الخليج والسوق الدولية. نحن متخصصون في تقديم خدمات هندسية فاخرة، ونقدم التميز في التصميم والبناء وإدارة المشاريع.",
-      description3:
-        "خالدز هي شركة رائدة في الاستشارات الهندسية وإدارة المشاريع، تهيمن على الإمارات العربية المتحدة ومنطقة الخليج والسوق الدولية. نحن متخصصون في تقديم خدمات هندسية فاخرة، ونقدم التميز في التصميم والبناء وإدارة المشاريع.",
+        "يقوم فريقنا المتخصص من مهندسي المناظر الطبيعية وخبراء تنسيق الحدائق بالعمل معك بشكل وثيق لفهم رؤيتك وطموحاتك، لضمان تنفيذ تصاميم متكاملة تراعي جميع التفاصيل. سواء كان لديك حديقة منزلية واسعة أو ممر تجاري جذاب، نحن نضع لمسات إبداعية تضمن الراحة والجمال وتدوم طويلاً. بفضل استخدام مواد عالية الجودة وتقنيات حديثة، نقدم حلولًا تلبي أعلى معايير الجودة والاستدامة.",
       images: [
         "https://cdn.builder.io/api/v1/image/assets/TEMP/ee56b6848a5668fe4c1e75c526f9ae88908da749",
         "https://cdn.builder.io/api/v1/image/assets/TEMP/83d057c657e643f783b5365240986c54a25d86a4",
@@ -58,16 +70,114 @@ const data = {
 
 const process = {
   eng: [
-    { title: "Step 1", content: "Initial consultation and project planning." },
-    { title: "Step 2", content: "Design and development phase." },
-    { title: "Step 3", content: "Construction and implementation." },
-    { title: "Step 4", content: "Project delivery and handover." },
+    {
+      title: "Consultation & Concept Development",
+      content:
+        "We start with a comprehensive consultation to understand your vision and requirements. Our team conducts a thorough site analysis to assess soil conditions, climate, and space utilization. After gathering insights, we develop 3D design concepts and detailed plans that perfectly align with your expectations",
+    },
+    {
+      title: "Plant Selection and Installation",
+      content:
+        "Our horticulture experts choose plant varieties that thrive in the local climate and complement the overall landscape design. We carefully plan the arrangement to ensure seasonal color and aesthetic appeal while minimizing maintenance. From vibrant flowers to lush shrubs, we create a dynamic and enduring green space.",
+    },
+    {
+      title: "Integrated Systems Installation",
+      content:
+        "We focus on installing modern irrigation systems that promote efficient water usage, including drip irrigation and sprinklers. Additionally, we install strategic outdoor lighting that not only enhances nighttime aesthetics but also improves safety and functionality.",
+    },
+    {
+      title: "Hardscape and Water Features",
+      content:
+        "Our designers craft elegant walkways, patios, and garden paths that seamlessly connect different areas. We also incorporate water features such as fountains, waterfalls, and ponds, adding a sense of tranquility and sophistication to your outdoor environment",
+    },
+    {
+      title: "Maintenance and Upkeep",
+      content:
+        "To keep your garden looking pristine, we offer comprehensive maintenance services, including pruning, irrigation management, fertilization, and pest control. We ensure your outdoor spaces remain beautiful and vibrant throughout the year.",
+    },
   ],
   ar: [
-    { title: "الخطوة 1", content: "الاستشارة الأولية وتخطيط المشروع." },
-    { title: "الخطوة 2", content: "مرحلة التصميم والتطوير." },
-    { title: "الخطوة 3", content: "البناء والتنفيذ." },
-    { title: "الخطوة 4", content: "تسليم المشروع وتسليمه." },
+    {
+      title: "  الاستشارة والتخطيط",
+      content:
+        "نبدأ بتقديم استشارة شاملة لفهم رؤيتك واحتياجاتك. يقوم فريقنا بإجراء تحليل شامل للموقع ودراسة لتحديد أفضل تصاميم المساحات الخارجية. بعد ذلك، نقدم تصاميم ثلاثية الأبعاد تضمن وضوح الرؤية والتوافق مع توقعاتك.",
+    },
+    {
+      title: " اختيار النباتات وتنفيذ الزراعة",
+      content:
+        "نقوم باختيار مجموعة متنوعة من النباتات التي تناسب المناخ المحلي وتحقق توازنًا بين الجمال والعملية. نضمن زراعة نباتات مقاومة للجفاف وتحتاج إلى صيانة قليلة، مما يضمن منظرًا طبيعيًا نابضًا بالحياة على مدار العام.",
+    },
+    {
+      title: "تركيب الأنظمة المتكاملة",
+      content:
+        "نركز على تصميم أنظمة ري حديثة تضمن توزيع المياه بشكل متساوٍ، مما يقلل استهلاكها ويعزز صحة النباتات. كما نقوم بتركيب أنظمة إضاءة خارجية تعزز جمال المساحات ليلاً وتخلق أجواءً ساحرة.",
+    },
+    {
+      title: " إنشاء الممرات والأحواض والعناصر المائية ",
+      content:
+        "نصمم ممرات عصرية تربط بين المساحات المختلفة، بالإضافة إلى أحواض مائية وديكورات نوافير تضفي على المساحات طابعًا فريدًا. نهتم بجميع التفاصيل لضمان تكامل التصميم وتناغم العناصر الطبيعية",
+    },
+    {
+      title: " الصيانة الدورية ",
+      content:
+        "نعتمد على خطط صيانة دقيقة تضمن الحفاظ على جمال الحدائق والمساحات الخضراء. تشمل الخدمات التقليم، الري، التسميد، ومكافحة الآفات بشكل منتظم، لضمان استدامة الحدائق وجمالها طوال العام.",
+    },
+  ],
+};
+const Faq = {
+  eng: [
+    {
+      title: "What types of outdoor spaces can you design?",
+      content:
+        "We design a wide range of outdoor spaces, including residential gardens, commercial landscapes, patios, terraces, and rooftop gardens.",
+    },
+    {
+      title: " Do you provide eco-friendly landscaping solutions?",
+      content:
+        "Yes, we prioritize sustainable practices by using drought-resistant plants, water-efficient irrigation systems, and eco-friendly materials.",
+    },
+    {
+      title: "How do you ensure quality in your landscape projects?",
+      content:
+        "Our team follows strict quality control measures, using premium materials and modern techniques to ensure longevity and durability. We also perform regular maintenance to keep your garden looking its best.",
+    },
+    {
+      title: "Do you offer regular garden maintenance services?",
+      content:
+        "Yes, we provide comprehensive maintenance packages to ensure your garden remains healthy, vibrant, and well-maintained throughout the year.",
+    },
+    {
+      title: "How can I start my landscape project with Khales?",
+      content:
+        "Simply reach out to us to schedule a consultation. Our team will discuss your vision, offer insights, and develop a customized landscape plan that suits your needs and preferences.",
+    },
+  ],
+  ar: [
+    {
+      title: " ما هي أنواع المساحات التي يمكنكم تصميمها؟",
+      content:
+        "نحن نقدم خدمات تصميم المناظر الطبيعية وتنسيق الحدائق للمساحات السكنية والتجارية على حد سواء، بما في ذلك الحدائق المنزلية، المساحات التجارية، الممرات، والشرفات.",
+    },
+    {
+      title: " هل يمكنكم تصميم حدائق صديقة للبيئة؟",
+      content:
+        "نعم، نحرص على استخدام نباتات مقاومة للجفاف وأنظمة ري ذكية لتقليل استهلاك المياه وضمان استدامة الحدائق.",
+    },
+    {
+      title: "كيف تضمنون جودة التنفيذ؟",
+      content:
+        "نحن نلتزم بأعلى معايير الجودة من خلال استخدام مواد معتمدة وتقنيات حديثة، بالإضافة إلى إشراف مباشر من فريقنا على جميع مراحل التنفيذ.",
+    },
+    {
+      title: "هل تشمل خدماتكم الصيانة الدورية؟",
+      content:
+        "نعم، نقدم خدمات صيانة شاملة تضمن بقاء الحدائق والمساحات الخارجية في أفضل حالة على مدار العام.",
+    },
+    {
+      title: "  كيف يمكنني البدء بمشروع تصميم المناظر الطبيعية معكم؟ ",
+      content:
+        "ما عليك سوى الاتصال بنا لتحديد موعد استشارة. سنعمل معك على وضع خطة تصميم تلبي رؤيتك وتطلعاتك، مع ضمان تجربة متميزة من البداية حتى النهاية",
+    },
   ],
 };
 
@@ -114,27 +224,10 @@ const ProjectHighlightdata = {
     },
   ],
 };
-const herodata = {
-  eng: [
-    {
-      title: "Project Mangament",
-      paragraph:
-        "We take your vision and turn it into reality—handling every detail from planning to delivery with precision and expertise. No delays, no compromises, just turnkey solutions that exceed expectations.",
-      button: "get in touch",
-    },
-  ],
-  ar: [
-    {
-      title: "الخطوة 1",
-      paragraph: "الاستشارة الأولية وتخطيط المشروع.",
-      button: "تواصل معنا",
-    },
-  ],
-};
 
 export const Column2 = styled.div`
   display: flex;
-  width: ${({ rtl }) => (rtl ? "10%" : "50vw")};
+  width: ${({ rtl }) => (rtl ? "38vw" : "70vw")};
   flex-direction: column;
   margin-top: 30%;
   @media (max-width: 1200px) {
@@ -143,42 +236,40 @@ export const Column2 = styled.div`
   }
   @media (max-width: 968px) {
     height: 50vh;
-
+    margin-top: -15%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    align-content: flex-end;
     width: 100vw;
 
     margin-right: 0;
   }
 `;
 
-function Projectmangment() {
-  const { language } = useLanguage(); // Get the current language
+function Landscaping() {
+  const [isLoading, setIsLoading] = useState(true);
+  const { language } = useLanguage(); // Assuming you have a language context
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // Simulate loading
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div>
-      <Herosection>
-        <Heroimg src="https://i.ibb.co/yc9hzDYt/1.png" />
-        <Row page={true} rtl={language === "ar"}>
-          <Column2 rtl={language === "ar"}>
-            <TextContianer>
-              <Title rtl={language === "ar"}>
-                {herodata[language][0].title}
-              </Title>
-              <Paragraph rtl={language === "ar"}>
-                {herodata[language][0].paragraph}
-              </Paragraph>
-            </TextContianer>
-          </Column2>
-          <ContentColumn>
-            {" "}
-            <Button2>{herodata[language][0].button}</Button2>
-          </ContentColumn>
-        </Row>
-      </Herosection>
+      <HeroSlider
+        slides={slides[language] || slides["eng"]}
+        language={language}
+        isLoading={isLoading}
+        rtl={language === "ar"}
+      />{" "}
       <InteriorDesign data={data[language]} />
       <Column>
         <Title2>
           {language === "ar" ? "عملية عملنا" : "Our Process"}
-          <GreenText>{language === "ar" ? "" : "Work"}</GreenText>
+          <GreenText>{language === "ar" ? "" : " Work"}</GreenText>
         </Title2>
         <Row2 rtl={language === "ar"}>
           <OurProcessWork panels={process[language]} />
@@ -187,17 +278,15 @@ function Projectmangment() {
         <ProjectHighlight data={ProjectHighlightdata[language]} />
 
         <Title2>
-          {language === "ar" ? "عملية عملنا" : "Our Process"}
-          <GreenText>{language === "ar" ? "" : "Work"}</GreenText>
+          {language === "ar" ? "عملية عملنا" : "Frequently Asked"}
+          <GreenText>{language === "ar" ? "" : " Questions"}</GreenText>
         </Title2>
-        <Row2 rtl={language === "ar"}>
-          <OurProcessWork panels={process[language]} />
-          <img width={"30%"} src={img} alt="Process Work" />
-        </Row2>
+
+        <OurProcessWork panels={Faq[language]} />
       </Column>
       <CTASection />
     </div>
   );
 }
 
-export default Projectmangment;
+export default Landscaping;

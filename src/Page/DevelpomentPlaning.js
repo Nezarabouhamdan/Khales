@@ -1,14 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InteriorDesign from "../components/InteriorDesign/InteriorDesign";
-import { Herosection, Heroimg } from "../components/Hero/Herostyles";
-import {
-  ContentColumn,
-  Subtitle,
-  TextContianer,
-  Paragraph,
-  Row,
-  Title,
-} from "../components/Slider/Slider";
+import HeroSlider from "../components/Slider/Slider";
 import OurProcessWork from "../components/OurProcessWork/OurProcessWork";
 import { Row2, Button2, Column } from "../Globalstyles";
 import img from "../assets/4.png";
@@ -18,17 +10,38 @@ import CTASection from "../components/Homecontact/CTASection";
 import ProjectHighlight from "../components/Projecthighlights/ProjectHighlight";
 import styled from "styled-components";
 import { useLanguage } from "../Context/Languagecontext"; // Import the language context
-
+export const slides = {
+  eng: [
+    {
+      id: 1,
+      image:
+        "https://i.ibb.co/DPKhyq7k/khales-ae-real-photograph-of-a-super-luxury-modern-mansion-fr-c2c57d33-5a47-4ccb-b054-498b16745d23-3.png",
+      title: "Shape Your Vision with Smart Planning",
+      content:
+        "Empowering your projects with innovative and sustainable planning solutions.",
+      button: "Start Planning Today",
+    },
+  ],
+  ar: [
+    {
+      id: 1,
+      image:
+        "https://i.ibb.co/DPKhyq7k/khales-ae-real-photograph-of-a-super-luxury-modern-mansion-fr-c2c57d33-5a47-4ccb-b054-498b16745d23-3.png",
+      title: "شكّل رؤيتك بتخطيط ذكي",
+      content: "نُمكّن مشاريعك بحلول تخطيط مبتكرة ومستدامة.",
+      button: "ابدأ التخطيط الآن",
+    },
+  ],
+};
 const data = {
   eng: [
     {
-      title: "Project Management",
+      title: "Development Planning: ",
+      subtitle: "Craft Your Vision, Achieve Success",
       description1:
-        "Khales is a leading Engineering Consultancy and Project Management Company, dominating the entire UAE, the Gulf region, and the international market. We specialize in providing luxury engineering services, delivering excellence in design, construction, and project management.",
+        "Every successful project begins with a clear and well-defined plan. We specialize in delivering comprehensive development planning services that transform your vision into a strategic roadmap for success. Our approach ensures that every aspect of your project is meticulously planned, from initial concept to final execution.We offer end-to-end solutions, starting with market research and extending to long-term facility management",
       description2:
-        "Khales is a leading Engineering Consultancy and Project Management Company, dominating the entire UAE, the Gulf region, and the international market. We specialize in providing luxury engineering services, delivering excellence in design, construction, and project management.",
-      description3:
-        "Khales is a leading Engineering Consultancy and Project Management Company, dominating the entire UAE, the Gulf region, and the international market. We specialize in providing luxury engineering services, delivering excellence in design, construction, and project management.",
+        "Our expertise spans across key regions in the UAE, including Dubai, Abu Dhabi, Sharjah, Ajman, Umm Al Quwain, Fujairah, Al Ain, and Ras Al Khaimah. No matter the scale or complexity, we are committed to ensuring your project thrives in every phase.Whether you’re envisioning a residential community, a commercial hub, or a mixed-use development, our team is here to bring your ideas to life. With a focus on innovation, sustainability, and client satisfaction, we turn challenges into opportunities and dreams into reality.",
       images: [
         "https://cdn.builder.io/api/v1/image/assets/TEMP/ee56b6848a5668fe4c1e75c526f9ae88908da749",
         "https://cdn.builder.io/api/v1/image/assets/TEMP/83d057c657e643f783b5365240986c54a25d86a4",
@@ -39,13 +52,13 @@ const data = {
   ],
   ar: [
     {
-      title: "إدارة المشاريع",
+      title: "التخطيط التطويري: ",
+      subtitle: " صياغة رؤيتك وتحقيق النجاح",
+
       description1:
-        "خالدز هي شركة رائدة في الاستشارات الهندسية وإدارة المشاريع، تهيمن على الإمارات العربية المتحدة ومنطقة الخليج والسوق الدولية. نحن متخصصون في تقديم خدمات هندسية فاخرة، ونقدم التميز في التصميم والبناء وإدارة المشاريع.",
+        "يبدأ كل مشروع ناجح بخطة واضحة ومحددة بدقة. نحن نختص بتقديم خدمات التخطيط التطويري الشاملة التي تحول رؤيتك إلى خارطة طريق استراتيجية للنجاح. نضمن من خلال نهجنا الدقيق أن يتم التخطيط لكل جانب من جوانب مشروعك بدقة، بدءًا من المفهوم الأولي ووصولًا إلى التنفيذ النهائي.نقدم حلولًا شاملة تبدأ من أبحاث السوق وتمتد إلى إدارة المرافق على المدى الطويل.",
       description2:
-        "خالدز هي شركة رائدة في الاستشارات الهندسية وإدارة المشاريع، تهيمن على الإمارات العربية المتحدة ومنطقة الخليج والسوق الدولية. نحن متخصصون في تقديم خدمات هندسية فاخرة، ونقدم التميز في التصميم والبناء وإدارة المشاريع.",
-      description3:
-        "خالدز هي شركة رائدة في الاستشارات الهندسية وإدارة المشاريع، تهيمن على الإمارات العربية المتحدة ومنطقة الخليج والسوق الدولية. نحن متخصصون في تقديم خدمات هندسية فاخرة، ونقدم التميز في التصميم والبناء وإدارة المشاريع.",
+        " تمتد خبرتنا عبر المناطق الرئيسية في الإمارات العربية المتحدة، بما في ذلك دبي، أبوظبي، الشارقة، عجمان، أم القيوين، الفجيرة، العين، ورأس الخيمة. بغض النظر عن حجم المشروع أو تعقيده، نحن ملتزمون بضمان ازدهار مشروعك في كل مرحلة.سواء كنت تتخيل مجتمعًا سكنيًا، أو مركزًا تجاريًا، أو تطويرًا مختلط الاستخدامات، فإن فريقنا موجود هنا لتحويل أفكارك إلى واقع. مع التركيز على الابتكار والاستدامة ورضا العملاء، نحول التحديات إلى فرص والأحلام إلى واقع ملموس",
       images: [
         "https://cdn.builder.io/api/v1/image/assets/TEMP/ee56b6848a5668fe4c1e75c526f9ae88908da749",
         "https://cdn.builder.io/api/v1/image/assets/TEMP/83d057c657e643f783b5365240986c54a25d86a4",
@@ -58,16 +71,164 @@ const data = {
 
 const process = {
   eng: [
-    { title: "Step 1", content: "Initial consultation and project planning." },
-    { title: "Step 2", content: "Design and development phase." },
-    { title: "Step 3", content: "Construction and implementation." },
-    { title: "Step 4", content: "Project delivery and handover." },
+    {
+      title: "Project Definition & Roadmap",
+      content:
+        "We define your project’s scope, objectives, and deliverables through meticulous programming, creating a clear roadmap for a well-coordinated development process.",
+    },
+    {
+      title: "Tailored Market Research",
+      content:
+        "Our market research services analyze current trends, demands, and opportunities in the UAE real estate market, ensuring your project aligns with investor and resident needs.",
+    },
+    {
+      title: "Pre-Feasibility Studies",
+      content:
+        "We conduct comprehensive pre-feasibility studies to assess your project’s potential, identifying challenges and opportunities while considering investment firms and market dynamics.",
+    },
+    {
+      title: "Concept Design Management",
+      content:
+        "Through collaborative concept design management, we refine and visualize your ideas, laying a strong foundation for the next stages of development.",
+    },
+    {
+      title: "Sustainable Construction",
+      content:
+        "We integrate eco-friendly materials and energy-efficient practices to minimize environmental impact, ensuring your project is as sustainable as it is stunning.",
+    },
+    {
+      title: " Facility Management Integration",
+      content:
+        "We integrate facility management planning from the start, ensuring your project’s long-term performance and connecting you with leading property management companies in the UAE.",
+    },
   ],
   ar: [
-    { title: "الخطوة 1", content: "الاستشارة الأولية وتخطيط المشروع." },
-    { title: "الخطوة 2", content: "مرحلة التصميم والتطوير." },
-    { title: "الخطوة 3", content: "البناء والتنفيذ." },
-    { title: "الخطوة 4", content: "تسليم المشروع وتسليمه." },
+    {
+      title: " تعريف المشروع وإعداد خارطة الطريق",
+      content:
+        "في بداية كل مشروع، نعمل على تحديد نطاق المشروع وأهدافه بشكل دقيق من خلال جلسات تفاعلية مع العميل. نحرص على تطوير خارطة طريق واضحة تشمل جميع المراحل المطلوبة، مما يضمن تخطيطًا منظمًا وفعالًا. يتم وضع استراتيجيات تشمل تقييم الجدوى المالية والفنية لضمان أن المشروع يسير وفق منهجية مدروسة منذ البداية وحتى الإنجاز.",
+    },
+    {
+      title: " أبحاث السوق المخصصة",
+      content:
+        "نقدم خدمات أبحاث السوق المتخصصة لتحليل الاتجاهات الحالية وتقييم حجم الطلب والفرص المتاحة في سوق العقارات الإماراتي. نقوم بتجميع وتحليل البيانات لتوفير رؤى واضحة تدعم اتخاذ قرارات استراتيجية مستنيرة. يساعد ذلك في ضمان توافق المشروع مع احتياجات المستثمرين والسوق المحلي، مما يزيد من فرص النجاح ويضمن مواءمة الخطط مع المتطلبات الواقعية.",
+    },
+    {
+      title: " دراسات الجدوى الأولية ",
+      content:
+        "نقوم بإجراء دراسات جدوى شاملة تأخذ في الاعتبار جميع العوامل المؤثرة في المشروع، بما في ذلك توقعات المستثمرين وديناميكيات السوق. تتيح هذه الدراسات تحديد التحديات المحتملة واستكشاف الفرص، مع وضع خطط للتعامل مع المخاطر بشكل استباقي. يضمن ذلك أن يكون المشروع مدروسًا من جميع الجوانب قبل الشروع في التنفيذ.",
+    },
+    {
+      title: "إدارة تصميم المفهوم",
+      content:
+        "نؤمن بأن تصميم المفهوم هو حجر الأساس في نجاح المشروع. نقوم بتطوير الأفكار وتحويلها إلى تصاميم أولية تستند إلى رؤية واضحة ومحددة. يعمل فريقنا بشكل تعاوني لضمان أن التصاميم ليست فقط جمالية ولكن أيضًا عملية وقابلة للتنفيذ. يتم توفير نماذج ثلاثية الأبعاد ولوحات تصور تساعدك على تخيل المشروع بشكل واقعي قبل البدء في التنفيذ.",
+    },
+    {
+      title: "  دمج إدارة المرافق  ",
+      content:
+        "بعد إدارة المرافق جزءًا أساسيًا من خطتنا التطويرية، حيث نقوم بدمج خطط الإدارة منذ البداية لضمان استدامة المشروع على المدى الطويل. يتم ربط المشروع بشركات إدارة العقارات الرائدة في الإمارات لضمان أداء فعال وسلس. كما نضمن أن تكون جميع الأنظمة التشغيلية ملائمة للاستخدام طويل الأمد مع توفير خدمات دعم متواصلة.",
+    },
+  ],
+};
+const Faq = {
+  eng: [
+    {
+      title: "What is development planning?",
+      content:
+        "Development planning involves creating a strategic roadmap for your project, from initial concept to long-term performance, ensuring it meets market demands and regulatory requirements",
+    },
+    {
+      title: " Do you work on projects across all seven emirates?",
+      content:
+        "Yes, we provide building contracting services in Dubai, Abu Dhabi, Sharjah, Ajman, Umm Al Quwain, Fujairah, Al Ain, and Ras Al Khaimah.",
+    },
+    {
+      title: "How do you ensure my project aligns with market trends?",
+      content:
+        "We conduct tailored market research to analyze current trends, demands, and opportunities, ensuring your project meets investor and resident expectations",
+    },
+    {
+      title: "Can you handle both small and large-scale projects?",
+      content:
+        "Absolutely. Whether it’s a small villa or a large commercial complex, we tailor our services to meet the scale and scope of your project.",
+    },
+    {
+      title: "Do you offer sustainable development solutions?",
+      content:
+        "Yes, sustainability is a core part of our planning process. We integrate eco-friendly designs and energy-efficient systems into every project.",
+    },
+    {
+      title: " How long does the development planning process take?",
+      content:
+        "The timeline depends on the project’s complexity. After the initial consultation, we provide a detailed schedule to keep you informed every step of the way.",
+    },
+    {
+      title: " Do you provide facility management planning?",
+      content:
+        "Yes, we integrate facility management planning from the start, ensuring your project’s long-term performance and connecting you with leading property management companies.",
+    },
+    {
+      title: "Can you work within my budget?",
+      content:
+        "We create plans that align with your budget without compromising on quality. During the consultation, we discuss your financial parameters and tailor our solutions accordingly.",
+    },
+    {
+      title: " What makes your building contracting services stand out?",
+      content:
+        "Our commitment to precision, innovation, and excellence sets us apart. We combine award-winning expertise with a client-centric approach to deliver exceptional results.",
+    },
+    {
+      title: "How can I get started with Khales Building Contracting?",
+      content:
+        "Simply contact us for a consultation. We’ll discuss your vision, provide a customized plan, and guide you through the process of creating your dream project.",
+    },
+  ],
+  ar: [
+    {
+      title: " ما هو التخطيط التطويري؟",
+      content:
+        "التخطيط التطويري يشمل إنشاء خارطة طريق استراتيجية لمشروعك، بدءًا من المفهوم الأولي ووصولاً إلى الأداء طويل الأمد، مع ضمان توافقه مع متطلبات السوق واللوائح التنظيمية.",
+    },
+    {
+      title: "هل تعملون على مشاريع في جميع الإمارات السبع؟",
+      content:
+        "نعم، نقدم خدمات التخطيط التطويري في دبي، أبوظبي، الشارقة، عجمان، أم القيوين، الفجيرة، العين، ورأس الخيمة.",
+    },
+    {
+      title: "كيف تضمنون أن مشروعي يتوافق مع اتجاهات السوق؟",
+      content:
+        "نقوم بإجراء أبحاث سوق مخصصة لتحليل الاتجاهات الحالية وحجم الطلب والفرص المتاحة، مما يضمن أن مشروعك يلبي توقعات المستثمرين والمستفيدين.",
+    },
+    {
+      title: "هل يمكنكم التعامل مع المشاريع الصغيرة والكبيرة؟  ",
+      content:
+        "بالتأكيد. سواء كان مشروعًا سكنيًا صغيرًا أو مجمعًا تجاريًا كبيرًا، نقدم خدمات مخصصة تناسب حجم ونطاق مشروعك.",
+    },
+    {
+      title: " هل تقدمون حلولاً للتطوير المستدام؟ ",
+      content:
+        "نعم، تُعد الاستدامة جزءًا أساسيًا من عملية التخطيط لدينا. ندمج التصاميم الصديقة للبيئة والأنظمة الموفرة للطاقة في كل مشروع.",
+    },
+    {
+      title: "  كم تستغرق عملية التخطيط التطويري؟",
+      content:
+        "تعتمد المدة على تعقيد المشروع. بعد الاستشارة الأولية، نقدم جدولاً زمنياً مفصلاً لإبقائك على اطلاع بكل خطوة.",
+    },
+    {
+      title: " هل تقدمون تخطيطًا لإدارة المرافق؟",
+      content:
+        "نعم، ندمج تخطيط إدارة المرافق من البداية، مما يضمن الأداء طويل الأمد لمشروعك وربطه بشركات إدارة العقارات الرائدة",
+    },
+    {
+      title: " هل يمكنكم العمل ضمن ميزانيتي؟",
+      content:
+        "نضع خططًا تتوافق مع ميزانيتك دون المساس بالجودة. خلال الاستشارة، نناقش معاييرك المالية ونقدم حلولاً مخصصة",
+    },
+    {
+      title: " كيف يمكنني البدء مع خدمات التخطيط التطويري؟",
+      content:
+        "ببساطة، قم بالاتصال بنا لترتيب استشارة. سنناقش رؤيتك ونقدم خطة مخصصة ونرشدك خلال عملية إنشاء مشروعك المثالي.",
+    },
   ],
 };
 
@@ -114,27 +275,10 @@ const ProjectHighlightdata = {
     },
   ],
 };
-const herodata = {
-  eng: [
-    {
-      title: "Project Mangament",
-      paragraph:
-        "We take your vision and turn it into reality—handling every detail from planning to delivery with precision and expertise. No delays, no compromises, just turnkey solutions that exceed expectations.",
-      button: "get in touch",
-    },
-  ],
-  ar: [
-    {
-      title: "الخطوة 1",
-      paragraph: "الاستشارة الأولية وتخطيط المشروع.",
-      button: "تواصل معنا",
-    },
-  ],
-};
 
 export const Column2 = styled.div`
   display: flex;
-  width: ${({ rtl }) => (rtl ? "10%" : "50vw")};
+  width: ${({ rtl }) => (rtl ? "38vw" : "70vw")};
   flex-direction: column;
   margin-top: 30%;
   @media (max-width: 1200px) {
@@ -143,42 +287,40 @@ export const Column2 = styled.div`
   }
   @media (max-width: 968px) {
     height: 50vh;
-
+    margin-top: -15%;
+    justify-content: flex-end;
+    align-items: flex-end;
+    align-content: flex-end;
     width: 100vw;
 
     margin-right: 0;
   }
 `;
 
-function Projectmangment() {
-  const { language } = useLanguage(); // Get the current language
+function DevelpomentPlaning() {
+  const [isLoading, setIsLoading] = useState(true);
+  const { language } = useLanguage(); // Assuming you have a language context
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // Simulate loading
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div>
-      <Herosection>
-        <Heroimg src="https://i.ibb.co/yc9hzDYt/1.png" />
-        <Row page={true} rtl={language === "ar"}>
-          <Column2 rtl={language === "ar"}>
-            <TextContianer>
-              <Title rtl={language === "ar"}>
-                {herodata[language][0].title}
-              </Title>
-              <Paragraph rtl={language === "ar"}>
-                {herodata[language][0].paragraph}
-              </Paragraph>
-            </TextContianer>
-          </Column2>
-          <ContentColumn>
-            {" "}
-            <Button2>{herodata[language][0].button}</Button2>
-          </ContentColumn>
-        </Row>
-      </Herosection>
+      <HeroSlider
+        slides={slides[language] || slides["eng"]}
+        language={language}
+        isLoading={isLoading}
+        rtl={language === "ar"}
+      />{" "}
       <InteriorDesign data={data[language]} />
       <Column>
         <Title2>
           {language === "ar" ? "عملية عملنا" : "Our Process"}
-          <GreenText>{language === "ar" ? "" : "Work"}</GreenText>
+          <GreenText>{language === "ar" ? "" : " Work"}</GreenText>
         </Title2>
         <Row2 rtl={language === "ar"}>
           <OurProcessWork panels={process[language]} />
@@ -187,17 +329,15 @@ function Projectmangment() {
         <ProjectHighlight data={ProjectHighlightdata[language]} />
 
         <Title2>
-          {language === "ar" ? "عملية عملنا" : "Our Process"}
-          <GreenText>{language === "ar" ? "" : "Work"}</GreenText>
+          {language === "ar" ? "عملية عملنا" : "Frequently Asked"}
+          <GreenText>{language === "ar" ? "" : " Questions"}</GreenText>
         </Title2>
-        <Row2 rtl={language === "ar"}>
-          <OurProcessWork panels={process[language]} />
-          <img width={"30%"} src={img} alt="Process Work" />
-        </Row2>
+
+        <OurProcessWork panels={Faq[language]} />
       </Column>
       <CTASection />
     </div>
   );
 }
 
-export default Projectmangment;
+export default DevelpomentPlaning;

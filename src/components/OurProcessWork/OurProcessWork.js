@@ -90,6 +90,7 @@ const PanelContent = styled.div`
   text-align: ${({ rtl }) => (rtl ? "right" : "left")};
   font-family: "Inter", sans-serif;
   font-size: 16px;
+  white-space: pre-line;
   @media (max-width: 968px) {
     font-size: 14px;
   }

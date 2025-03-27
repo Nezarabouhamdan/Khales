@@ -67,11 +67,11 @@ export const TextSection = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 600;
   color: #545454;
   margin-bottom: 20px;
-
+  line-height: 60px;
   @media (max-width: 640px) {
     font-size: 32px;
   }
@@ -85,7 +85,7 @@ const Description = styled.p`
   font-size: 16px;
   line-height: 1.6;
   color: #000000;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 
   @media (max-width: 640px) {
     font-size: 14px;
