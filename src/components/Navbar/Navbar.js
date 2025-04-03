@@ -246,7 +246,7 @@ const Navbar = () => {
                 <ul className={boxClassSubMenu.join(" ")}>
                   <li>
                     {" "}
-                    <NavLink
+                    <Link
                       onClick={toggleClass}
                       activeClassName="is-active"
                       to={`/ProjectManagement`}
@@ -263,7 +263,7 @@ const Navbar = () => {
                         {" "}
                         {tabs[2]}{" "}
                       </Text>{" "}
-                    </NavLink>{" "}
+                    </Link>{" "}
                   </li>
                   <li>
                     <NavLink
