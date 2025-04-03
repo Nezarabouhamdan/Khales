@@ -4,12 +4,12 @@ import FeaturedProjects from "../components/Featured Projects/FeaturedProjects";
 import TestimonialSlider from "../components/Reviews/TestimonialSlider";
 import CTASection from "../components/Homecontact/CTASection";
 import { slides } from "../data/HeroData";
-import AboutSection from "../ss";
 import WhoAreWe from "../components/Whoweare/WhoAreWe";
 import ServicesSwiper from "../components/Whatwedodeep/Whatwedo";
 import styled, { css } from "styled-components";
 import { useLanguage } from "../Context/Languagecontext";
 import { Helmet } from "react-helmet";
+import { Portfolio } from "../components/Portfolio/Portfolio";
 
 function Home() {
   const [isLoading, setIsLoading] = useState(true);

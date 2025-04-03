@@ -21,9 +21,11 @@ import logo from "../../assets/Khales Logo.png";
 import styled from "styled-components";
 import useDeviceSize from "../../Page/WindowSize.js";
 import { useLanguage } from "../../Context/Languagecontext.js";
+
 const Navbar = () => {
   const [isSticky, setSticky] = useState(false);
-  const { language, changeLanguage } = useLanguage(); // Use the context
+  const { language, changeLanguage } = useLanguage();
+  const location = useLocation();
 
   const handleScroll = () => {
     setSticky(window.scrollY > 0);
@@ -35,6 +37,7 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   const StyledButton = styled(Link)`
     display: flex;
     align-items: center;
@@ -69,7 +72,8 @@ const Navbar = () => {
       margin-right: 0px;
     }
   `;
-  var tabE = [
+
+  const tabE = [
     "Home",
     "Services",
     "Project Management",
@@ -89,7 +93,8 @@ const Navbar = () => {
     "Arabic",
     "English",
   ];
-  var tabA = [
+
+  const tabA = [
     "الرئيسية",
     "الخدمات",
     "إدارة مشاريع",
@@ -109,21 +114,17 @@ const Navbar = () => {
     "العربية",
     "الانجليزية",
   ];
+
   const [show, setShow] = useState(false);
-  const [tabs, setTabs] = useState(tabE);
+  const [tabs, setTabs] = useState(language === "ar" ? tabA : tabE);
 
-  let history = useHistory();
-  let location = useLocation();
-
-  const handleClick = () => {
-    setShow(!show);
-  };
   useEffect(() => {
     setTabs(language === "ar" ? tabA : tabE);
   }, [language]);
 
   const handleLanguageChange = (lang) => {
     changeLanguage(lang);
+    // Remove the NavLink navigation and just change the language
   };
 
   const [isMenu, setisMenu] = useState(false);
@@ -133,12 +134,14 @@ const Navbar = () => {
     setisMenu(isMenu === false ? true : false);
     setResponsiveclose(isResponsiveclose === false ? true : false);
   };
+
   let boxClass = ["main-menu menu-right menuq1"];
   if (isMenu) {
     boxClass.push("menuq2");
   } else {
     boxClass.push("");
   }
+
   const [isMenuSubMenu, setMenuSubMenu] = useState(false);
   const toggleSubmenu = () => {
     setMenuSubMenu(isMenuSubMenu === false ? true : false);
@@ -171,6 +174,7 @@ const Navbar = () => {
   } else {
     boxClassSubMenu3.push("");
   }
+
   const [isMenuSubMenu4, setMenuSubMenu4] = useState(false);
   const toggleSubmenu4 = () => {
     setMenuSubMenu4(isMenuSubMenu4 === false ? true : false);
@@ -181,6 +185,10 @@ const Navbar = () => {
   } else {
     boxClassSubMenu4.push("");
   }
+
+  const handleClick = () => {
+    setShow(!show);
+  };
 
   return (
     <Nav className={isSticky ? "sticky" : ""}>
@@ -197,7 +205,7 @@ const Navbar = () => {
               ""
             ) : (
               <StyledButton style={{ margin: "auto" }}>
-                Book Consultation
+                {language === "eng" ? "Book Consultation" : "أحجز موعدك الآن"}
               </StyledButton>
             )}
             <ul className={boxClass.join(" ")}>
@@ -480,32 +488,41 @@ const Navbar = () => {
                 onClick={toggleSubmenu4}
                 className="menu-item sub__menus__arrows"
               >
-                {" "}
                 <Link to="#">
-                  {" "}
-                  <Text> {tabs[15]} </Text>{" "}
+                  <Text>{tabs[15]}</Text>
                 </Link>
                 <ul className={boxClassSubMenu4.join(" ")}>
                   <li>
-                    {" "}
-                    <NavLink
+                    <button
                       onClick={() => handleLanguageChange("ar")}
-                      activeClassName="is-active"
-                      to={"/"}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        width: "100%",
+                        textAlign: "left",
+                        padding: "8px 16px",
+                        color: language === "ar" ? "#66a109" : "black",
+                      }}
                     >
-                      {" "}
-                      <Text>{tabs[16]} </Text>
-                    </NavLink>{" "}
+                      <Text>{tabs[16]}</Text>
+                    </button>
                   </li>
                   <li>
-                    <NavLink
+                    <button
                       onClick={() => handleLanguageChange("eng")}
-                      activeClassName="is-active"
-                      to={`/`}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        width: "100%",
+                        textAlign: "left",
+                        padding: "8px 16px",
+                        color: language === "eng" ? "#66a109" : "black",
+                      }}
                     >
-                      {" "}
-                      <Text>{tabs[17]} </Text>
-                    </NavLink>{" "}
+                      <Text>{tabs[17]}</Text>
+                    </button>
                   </li>
                 </ul>
               </li>
@@ -513,7 +530,6 @@ const Navbar = () => {
           </NavItem>
         </NavMenu>
         <NavMenu>
-          {" "}
           <StyledButton to={`/booking`}>
             {language === "eng" ? "Book Consultation" : "أحجز موعدك الآن"}
           </StyledButton>

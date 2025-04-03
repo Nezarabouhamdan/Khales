@@ -8,10 +8,9 @@ import MissionVisionSection from "../components/aboutuscomponetn1/MissionVisionS
 function Aboutus() {
   return (
     <>
-      <div style={{ height: "20vh" }}></div>
-      <MissionVisionSection />
+      <div style={{ height: "10vh" }}></div>
       <AboutSection />
-      <SectionAboutUs3 />
+      <MissionVisionSection />
     </>
   );
 }
